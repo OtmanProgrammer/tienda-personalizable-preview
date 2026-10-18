@@ -1,10 +1,12 @@
 const kindNames={camiseta:'CAMISETA',polo:'POLO',camisa:'CAMISA',sudadera:'SUDADERA'};
 const swatchNames={'#f4f0e7':'BLANCO NATURAL','#a6ae98':'VERDE SALVIA','#efd151':'AMARILLO VIVO'};
+const garmentSheets={'#f4f0e7':'garment-preview-sprite.png','#a6ae98':'garment-preview-sage.png','#efd151':'garment-preview-yellow.png'};
 const kindButtons=[...document.querySelectorAll('[data-kind]')];
 const quantity=document.getElementById('preview-quantity');
 const designs=document.getElementById('small-designs');
 const size=document.getElementById('design-size');
 const stage=document.getElementById('garment-stage');
+const garmentPhoto=document.getElementById('garment-photo');
 let kind='camiseta';
 let color='#f4f0e7';
 function bounded(input,min,max){const n=Number.parseInt(input.value,10);input.value=String(Number.isFinite(n)?Math.min(max,Math.max(min,n)):min);return Number(input.value)}
@@ -12,7 +14,8 @@ function update(){
   const qty=bounded(quantity,1,99), count=bounded(designs,1,10);
   document.getElementById('garment-label').textContent=kindNames[kind];
   document.getElementById('color-label').textContent=swatchNames[color];
-  stage.style.setProperty('--garment-color',color);
+  garmentPhoto.setAttribute('aria-label',`Previsualización de ${kindNames[kind].toLowerCase()}`);
+  stage.style.setProperty('--garment-sheet',`url("${garmentSheets[color]}")`);
   stage.classList.remove('kind-camiseta','kind-polo','kind-camisa','kind-sudadera');
   stage.classList.add(`kind-${kind}`);
   stage.classList.toggle('large',size.value==='large');

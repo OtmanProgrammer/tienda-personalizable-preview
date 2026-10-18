@@ -4,11 +4,11 @@ Maqueta estática para compartir el aspecto y el configurador de la tienda. No r
 
 ## Archivos
 
-- `index.html`: página de demostración e ilustraciones vectoriales de las cuatro prendas.
-- `styles.css`: estilos adaptables a móvil.
-- `preview.js`: selector visual de cuatro prendas; muestra los 12 colores anunciados para la camiseta técnica y los 8 del polo deportivo, sin afirmar que haya existencias. El cálculo es orientativo solo para camiseta con impresión pequeña.
+- `index.html`: página de demostración para camiseta, polo y sudadera.
+- `styles.css`: estilos adaptables a móvil y guías de talla.
+- `preview.js`: selector interactivo de prendas, colores y tallas. Incluye 12 tonos anunciados para la camiseta TheMagicTouch y 8 para el polo JHK SPORTPIQUE; no afirma que haya existencias. Muestra medidas de polo publicadas por JHK y los datos A/B/C del gráfico ANBOR GOBI. En la camiseta el fabricante no publica medidas de ancho/largo en la ficha enlazada, así que no se inventan.
 - `prendas-hero.png`: imagen de prendas.
 
-La camiseta se muestra a 7 € con un diseño pequeño incluido y 1 € por cada diseño pequeño adicional, conforme a la configuración inicial solicitada. Polo, camisa, sudadera e impresión grande aparecen como «Por definir». Las tallas y sus medidas verificadas siguen pendientes de configurar. El teléfono de contacto se muestra en el pie de la página.
+La camiseta se muestra a 7 € con un diseño pequeño incluido y 1 € por cada diseño pequeño adicional, conforme a la configuración inicial solicitada. Polo, sudadera e impresión grande aparecen como «Por definir». Los colores y medidas en pantalla son referencias visuales; las existencias y la compatibilidad con sublimación se confirman antes de producir. El teléfono de contacto se muestra en el pie de la página.
 
 Esta demostración sigue sin aceptar pedidos. GitHub Pages sirve archivos estáticos y no ejecuta el servidor persistente descrito en el README de la aplicación.

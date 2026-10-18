@@ -183,5 +183,24 @@ h2 { font:600 clamp(32px,4vw,45px)/1.12 var(--serif); letter-spacing:-.02em; mar
 .category-icon.hoodie{background-image:url('garment-preview-framed.png');background-color:#f7f6f1}
 
 .category-icon.hoodie{background:#f7f6f1 url('garment-preview-framed.png') 100% 100%/200% 200% no-repeat}
+.color-control{grid-column:1/-1}
+.size-select{width:100%;height:36px;border:1px solid var(--line);border-radius:4px;background:#fff;padding:0 9px;color:#484b44;font-size:11px}
+.swatch:focus-visible,.choice:focus-visible,.size-select:focus-visible{outline:2px solid var(--green-dark);outline-offset:2px}
+.size-guide{align-items:flex-start}
+.size-guide>div{width:100%;min-width:0}
+.size-guide p{margin:5px 0 9px;color:#69705f;font-size:10px;line-height:1.5}
+.size-guide table{width:100%;border-collapse:collapse;background:#fff;margin:8px 0;font-size:10px}
+.size-guide th,.size-guide td{padding:6px 7px;border:1px solid #e3e2dc;text-align:left}
+.size-guide th{background:#f3f4ef;color:#465044;font-size:9px}
+.size-guide a{display:inline-block;margin-top:5px;color:#4f6650;font-size:10px;text-decoration:underline;text-underline-offset:2px}
+.category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stage-caption{gap:8px;font-size:8px}
+.garment-photo{isolation:isolate}
+.garment-photo::after{content:"";position:absolute;inset:0;z-index:2;background:var(--garment-color,#f4f0e7);opacity:.62;mix-blend-mode:multiply;pointer-events:none}
+.kind-camiseta .garment-photo::after{clip-path:polygon(43% 9%,56% 9%,64% 12%,71% 15%,87% 32%,100% 39%,89% 49%,79% 43%,78% 88%,22% 88%,21% 43%,11% 49%,0 39%,13% 32%,29% 15%,36% 12%)}
+.kind-polo .garment-photo::after{clip-path:polygon(43% 9%,56% 9%,64% 12%,71% 15%,87% 32%,100% 39%,89% 49%,79% 43%,78% 88%,22% 88%,21% 43%,11% 49%,0 39%,13% 32%,29% 15%,36% 12%)}
+.kind-sudadera .garment-photo::after{clip-path:polygon(38% 12%,62% 12%,71% 20%,85% 22%,98% 38%,89% 49%,78% 44%,77% 84%,23% 84%,22% 44%,11% 49%,2% 38%,15% 22%,29% 20%)}
+@media(max-width:800px){.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.category-grid{grid-template-columns:1fr}}
 
 

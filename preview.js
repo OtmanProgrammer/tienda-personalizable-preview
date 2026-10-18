@@ -182,7 +182,7 @@ const orderTitle = document.getElementById('order-title');
 const orderIntro = document.getElementById('order-intro');
 const orderFootnote = document.getElementById('order-footnote');
 const orderButtonLabel = document.getElementById('order-button-label');
-const orderReference = `TD-${new Date().toISOString().slice(0, 10).replaceAll('-', '')}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+let orderReference = '';
 const customerName = document.getElementById('customer-name');
 const customerPhone = document.getElementById('customer-phone');
 const customerEmail = document.getElementById('customer-email');
@@ -256,6 +256,7 @@ orderForm.addEventListener('submit', event => {
     orderStatus.textContent = 'Completa el nombre, revisa el correo y acepta el aviso para continuar.';
     return;
   }
+  orderReference = `TD-${new Date().toISOString().slice(0, 10).replaceAll('-', '')}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
   update();
   orderStatus.textContent = 'Enviando tu solicitud por correo…';
   orderButton.disabled = true;

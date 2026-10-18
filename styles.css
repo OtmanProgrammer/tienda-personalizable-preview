@@ -92,8 +92,23 @@ h2 { font:600 clamp(32px,4vw,45px)/1.12 var(--serif); letter-spacing:-.02em; mar
 .preview-top span:last-child { color:var(--green-dark); }
 .preview-top i { display:inline-block; width:6px; height:6px; background:#95a486; border-radius:50%; margin-right:5px; }
 .garment-stage { position:relative; display:grid; place-items:center; flex:1; min-height:235px; margin:17px 0 15px; background:#f7f6f1; border-radius:5px; overflow:hidden; }
-.shirt-shape { position:relative; width:166px; height:178px; background:#f4f0e7; clip-path:polygon(17% 10%,35% 1%,45% 10%,55% 10%,65% 1%,83% 10%,100% 28%,86% 45%,76% 38%,77% 100%,23% 100%,24% 38%,14% 45%,0 28%); filter:drop-shadow(0 8px 12px rgba(30,33,29,.11)); transition:background .2s; }
-.shirt-neck { position:absolute; left:61px; top:1px; width:44px; height:24px; border:5px solid rgba(60,63,55,.08); border-top:0; border-radius:0 0 50% 50%; }
+.garment-shape { position:relative; width:166px; height:178px; --garment-color:#f4f0e7; background:var(--garment-color); clip-path:polygon(17% 10%,35% 1%,45% 10%,55% 10%,65% 1%,83% 10%,100% 28%,86% 45%,76% 38%,77% 100%,23% 100%,24% 38%,14% 45%,0 28%); filter:drop-shadow(0 8px 12px rgba(30,33,29,.11)); transition:background .2s,clip-path .2s; }
+.garment-neck { position:absolute; left:61px; top:1px; width:44px; height:24px; border:5px solid rgba(60,63,55,.08); border-top:0; border-radius:0 0 50% 50%; }
+.garment-collar,.garment-placket,.hoodie-hood,.hoodie-cords,.hoodie-pocket { display:none; position:absolute; pointer-events:none; }
+.garment-stage.kind-polo .garment-shape { clip-path:polygon(17% 9%,35% 2%,44% 13%,56% 13%,65% 2%,83% 9%,100% 27%,86% 44%,77% 38%,78% 100%,22% 100%,23% 38%,14% 44%,0 27%); }
+.kind-polo .garment-neck { display:none; }
+.kind-polo .garment-collar { display:block; top:3px; left:61px; width:44px; height:30px; }
+.garment-collar i { position:absolute; top:0; width:23px; height:27px; background:color-mix(in srgb,var(--garment-color),#252820 12%); }
+.garment-collar i:first-child { left:0; clip-path:polygon(0 0,100% 0,74% 100%,35% 65%); }
+.garment-collar i:last-child { right:0; clip-path:polygon(0 0,100% 0,65% 65%,26% 100%); }
+.kind-polo .garment-placket { display:block; top:22px; left:80px; width:6px; height:33px; border-radius:0 0 3px 3px; background:color-mix(in srgb,var(--garment-color),#252820 10%); }
+.kind-polo .garment-placket::after { content:""; position:absolute; left:2px; top:6px; width:2px; height:22px; background:radial-gradient(circle,#645e52 1px,transparent 1.3px) 0 0/2px 8px repeat-y; }
+.garment-stage.kind-sudadera .garment-shape { clip-path:polygon(20% 10%,34% 2%,43% 13%,57% 13%,66% 2%,80% 10%,100% 28%,88% 48%,77% 40%,79% 93%,73% 100%,27% 100%,21% 93%,23% 40%,12% 48%,0 28%); }
+.kind-sudadera .garment-neck { display:none; }
+.kind-sudadera .hoodie-hood { display:block; top:-1px; left:57px; width:52px; height:39px; border:8px solid color-mix(in srgb,var(--garment-color),#252820 11%); border-bottom:0; border-radius:52% 52% 25% 25%; }
+.kind-sudadera .hoodie-cords { display:flex; gap:13px; top:33px; left:78px; height:37px; }
+.hoodie-cords i { width:2px; height:100%; background:color-mix(in srgb,var(--garment-color),#252820 20%); border-radius:2px; }
+.kind-sudadera .hoodie-pocket { display:block; top:106px; left:49px; width:68px; height:37px; border:2px solid color-mix(in srgb,var(--garment-color),#252820 11%); border-top:0; border-radius:0 0 17px 17px; }
 .shirt-print { position:absolute; left:59px; top:60px; width:52px; height:52px; display:grid; place-content:center; text-align:center; background:#ed8055; color:#fff; font:700 11px/1.08 var(--sans); letter-spacing:.08em; transform:rotate(-6deg); box-shadow:0 4px 10px #0002; }
 .shirt-print span { font-size:16px; color:#f8d45d; }
 .garment-stage.large .shirt-print { width:83px; height:83px; left:42px; top:48px; font-size:14px; }

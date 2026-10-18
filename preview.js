@@ -4,6 +4,8 @@ const kindButtons=[...document.querySelectorAll('[data-kind]')];
 const quantity=document.getElementById('preview-quantity');
 const designs=document.getElementById('small-designs');
 const size=document.getElementById('design-size');
+const stage=document.getElementById('garment-stage');
+const garment=document.getElementById('garment-shape');
 let kind='camiseta';
 let color='#f4f0e7';
 function bounded(input,min,max){const n=Number.parseInt(input.value,10);input.value=String(Number.isFinite(n)?Math.min(max,Math.max(min,n)):min);return Number(input.value)}
@@ -11,8 +13,10 @@ function update(){
   const qty=bounded(quantity,1,99), count=bounded(designs,1,10);
   document.getElementById('garment-label').textContent=kindNames[kind];
   document.getElementById('color-label').textContent=swatchNames[color];
-  document.querySelector('.shirt-shape').style.background=color;
-  document.getElementById('garment-stage').classList.toggle('large',size.value==='large');
+  garment.style.setProperty('--garment-color',color);
+  stage.classList.remove('kind-camiseta','kind-polo','kind-sudadera');
+  stage.classList.add(`kind-${kind}`);
+  stage.classList.toggle('large',size.value==='large');
   document.getElementById('price-unit').textContent=`${qty} ${qty===1?'prenda':'prendas'}`;
   const priced=kind==='camiseta'&&size.value==='small';
   document.getElementById('price-value').textContent=priced?`${(qty*(7+Math.max(0,count-1))).toFixed(2).replace('.',',')} €`:'Por definir';

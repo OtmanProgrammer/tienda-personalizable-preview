@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f5ef">
+  <meta name="description" content="Vista de demostración de Tu diseño, tu prenda. No se aceptan pedidos en esta página.">
+  <title>Tu diseño, tu prenda — Vista de demostración</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="preview.js" defer></script>
+</head>
+<body>
+  <div class="demo-banner"><span class="demo-dot"></span> Vista de demostración · No se aceptan pedidos ni se envían datos</div>
+  <header class="site-header wrap">
+    <a class="brand" href="#inicio" aria-label="Tu diseño, tu prenda, inicio"><span class="brand-mark">td<span>/</span></span><span class="brand-name">TU DISEÑO,<br>TU PRENDA</span></a>
+    <nav aria-label="Navegación principal"><a href="#coleccion">Prendas</a><a href="#configurador">Personalizador</a><a href="#materiales">Materiales</a></nav>
+    <a class="header-cta" href="#configurador">Explorar diseño <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main id="inicio">
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <p class="eyebrow"><span></span> PRENDAS PERSONALIZADAS</p>
+        <h1>Tu diseño,<br><em>tu prenda.</em></h1>
+        <p class="hero-lede">Una idea que te gusta. Una prenda que eliges. Un diseño hecho a tu manera.</p>
+        <a class="button button-dark" href="#configurador">Ver el personalizador <span aria-hidden="true">↘</span></a>
+        <p class="hero-note">Camisetas · Polos · Sudaderas</p>
+      </div>
+      <div class="hero-visual"><img src="prendas-hero.png" alt="Camiseta, polo y sudadera en tonos claros" loading="eager"><span class="visual-sticker">HECHO<br>A TU MANERA <b>✳</b></span></div>
+      <div class="hero-index" aria-hidden="true">01 — 03</div>
+    </section>
+
+    <section class="collection section wrap" id="coleccion">
+      <div class="section-head"><div><p class="eyebrow"><span></span> LA COLECCIÓN</p><h2>Empieza con una <em>prenda.</em></h2></div><p class="section-intro">Elige una base sencilla y dale tu toque. La disponibilidad y compatibilidad se confirman antes de producir.</p></div>
+      <div class="category-grid">
+        <button class="category-card selected" type="button" data-kind="camiseta"><span class="category-number">01</span><span class="category-icon tee" aria-hidden="true"><i></i></span><span class="category-name">Camisetas</span><span class="category-copy">Una favorita de todos los días.</span><span class="category-arrow">↗</span></button>
+        <button class="category-card" type="button" data-kind="polo"><span class="category-number">02</span><span class="category-icon polo" aria-hidden="true"><i></i></span><span class="category-name">Polos</span><span class="category-copy">Un clásico con tu propio detalle.</span><span class="category-arrow">↗</span></button>
+        <button class="category-card" type="button" data-kind="sudadera"><span class="category-number">03</span><span class="category-icon hoodie" aria-hidden="true"><i></i></span><span class="category-name">Sudaderas</span><span class="category-copy">Comodidad para llevar a tu manera.</span><span class="category-arrow">↗</span></button>
+      </div>
+    </section>
+
+    <section class="customizer section" id="configurador">
+      <div class="wrap">
+        <div class="section-head customizer-head"><div><p class="eyebrow"><span></span> UNA IDEA, A TU MANERA</p><h2>Imagina cómo <em>quedaría.</em></h2></div><div class="preview-only">PREVISUALIZACIÓN · SIN PEDIDO</div></div>
+        <div class="customizer-layout">
+          <div class="controls-card">
+            <div class="step-title"><span>01</span><div><h3>Elige tu prenda</h3><p>Selecciona una categoría para explorar.</p></div></div>
+            <div class="choice-row" role="group" aria-label="Tipo de prenda"><button type="button" class="choice active" data-kind="camiseta">Camiseta</button><button type="button" class="choice" data-kind="polo">Polo</button><button type="button" class="choice" data-kind="sudadera">Sudadera</button></div>
+            <div class="control-divider"></div>
+            <div class="control-columns">
+              <div class="control-block"><label class="control-label">Color de ejemplo</label><div class="swatches" role="group" aria-label="Colores de ejemplo"><button type="button" class="swatch active" aria-label="Blanco natural" title="Blanco natural" data-color="#f4f0e7"><i></i></button><button type="button" class="swatch" aria-label="Verde salvia" title="Verde salvia" data-color="#a6ae98"><i></i></button><button type="button" class="swatch" aria-label="Amarillo vivo" title="Amarillo vivo" data-color="#efd151"><i></i></button></div><p class="helper">Muestras visuales; colores disponibles por confirmar.</p></div>
+              <div class="control-block"><label class="control-label" for="preview-quantity">Cantidad de ejemplo</label><div class="quantity"><button type="button" data-qty="minus" aria-label="Reducir cantidad">−</button><input id="preview-quantity" type="number" min="1" max="99" value="1" inputmode="numeric"><button type="button" data-qty="plus" aria-label="Aumentar cantidad">+</button></div><p class="helper">No reserva existencias.</p></div>
+            </div>
+            <div class="control-divider"></div>
+            <div class="step-title step-small"><span>02</span><div><h3>Piensa en tu diseño</h3><p>La zona y el tamaño se acuerdan antes de producir.</p></div></div>
+            <div class="control-columns design-settings">
+              <div class="control-block"><label class="control-label" for="design-size">Tamaño de ejemplo</label><select id="design-size"><option value="small">Pequeño</option><option value="large">Grande</option></select></div>
+              <div class="control-block"><label class="control-label" for="small-designs">Diseños pequeños</label><div class="quantity"><button type="button" data-design="minus" aria-label="Quitar diseño pequeño">−</button><input id="small-designs" type="number" min="1" max="10" value="1" inputmode="numeric"><button type="button" data-design="plus" aria-label="Añadir diseño pequeño">+</button></div></div>
+            </div>
+            <div class="guide-note"><span aria-hidden="true">↗</span><p><strong>Guía de tallas pendiente</strong><br>Se añadirán medidas cuando se verifiquen para cada prenda.</p></div>
+          </div>
+          <aside class="preview-card" aria-label="Previsualización de la prenda y precio de ejemplo">
+            <div class="preview-top"><span>VISTA PREVIA</span><span><i></i> DEMO</span></div>
+            <div class="garment-stage" id="garment-stage"><div class="shirt-shape"><div class="shirt-neck"></div><div class="shirt-print">TU<br>DISEÑO<span>✳</span></div></div><div class="stage-caption"><span id="garment-label">CAMISETA</span><span id="color-label">BLANCO NATURAL</span></div></div>
+            <div class="price-panel"><div><span class="price-label">Precio de ejemplo</span><strong id="price-value">7,00 €</strong></div><span class="price-unit" id="price-unit">1 prenda</span></div>
+            <p class="price-note" id="price-note">Camiseta: 7 € con un diseño pequeño incluido; cada diseño pequeño adicional suma 1 €. Importe orientativo, pendiente de configuración final.</p>
+            <p class="no-price-note" id="no-price-note" hidden>El precio de esta prenda o impresión grande se definirá en Administración. No se estima un total en esta demostración.</p>
+            <div class="demo-stop"><span aria-hidden="true">✳</span><p><strong>Solo una muestra visual</strong><br>No se recogen datos ni se envían pedidos desde este enlace.</p></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="materials section wrap" id="materiales"><div class="materials-mark" aria-hidden="true">✳</div><div><p class="eyebrow"><span></span> UNA NOTA SOBRE SUBLIMACIÓN</p><h2>El tejido <em>sí importa.</em></h2></div><p class="materials-copy">La sublimación tradicional funciona mejor en prendas blancas o claras con alto contenido de poliéster. No es adecuada para cualquier tejido o color: la compatibilidad se confirma para cada prenda antes de producir.</p></section>
+    <section class="pickup"><div class="wrap pickup-inner"><span aria-hidden="true">⌖</span><div><p class="eyebrow">RECOGIDA Y PAGO</p><h2>Se acuerdan al confirmar.</h2></div><p>El punto de recogida sigue pendiente. El pago previsto es en efectivo al recoger. Esta demostración no gestiona pedidos.</p></div></section>
+  </main>
+  <footer class="site-footer"><div class="wrap footer-top"><a class="brand" href="#inicio"><span class="brand-mark">td<span>/</span></span><span class="brand-name">TU DISEÑO,<br>TU PRENDA</span></a><p>Un poco de color.<br>Una idea muy tuya.</p><a href="#inicio">Volver arriba ↑</a></div><div class="wrap footer-bottom"><span>Vista demostrativa · 2026</span><span>Sin pedidos ni recogida de datos <b>✳</b></span></div></footer>
+</body>
+</html>

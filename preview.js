@@ -1,6 +1,6 @@
 const kindNames={camiseta:'CAMISETA',polo:'POLO',camisa:'CAMISA',sudadera:'SUDADERA'};
 const swatchNames={'#f4f0e7':'BLANCO NATURAL','#a6ae98':'VERDE SALVIA','#efd151':'AMARILLO VIVO'};
-const garmentSheets={'#f4f0e7':'garment-preview-sprite.png','#a6ae98':'garment-preview-sage.png','#efd151':'garment-preview-yellow.png'};
+const garmentSheets={'#f4f0e7':'garment-preview-framed.png','#a6ae98':'garment-preview-sage-framed.png','#efd151':'garment-preview-yellow-framed.png'};
 const kindButtons=[...document.querySelectorAll('[data-kind]')];
 const quantity=document.getElementById('preview-quantity');
 const designs=document.getElementById('small-designs');

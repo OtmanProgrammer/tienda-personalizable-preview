@@ -92,8 +92,9 @@ function renderSwatches() {
     return button;
   }));
   const selected = options.find(([, hex]) => hex === color)?.[0];
+  const countLabel = options.length === 1 ? 'color anunciado' : 'colores anunciados';
   document.getElementById('color-helper').textContent = selected
-    ? `Seleccionado: ${selected}. ${options.length} color${options.length === 1 ? '' : 'es'} anunciados; muestras digitales aproximadas y existencias por confirmar.`
+    ? `Seleccionado: ${selected}. ${options.length} ${countLabel}; muestras digitales aproximadas y existencias por confirmar.`
     : 'El proveedor consultado no confirma una carta de colores para esta prenda.';
 }
 

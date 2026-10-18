@@ -248,5 +248,15 @@ h2 { font:600 clamp(32px,4vw,45px)/1.12 var(--serif); letter-spacing:-.02em; mar
 .form-field input:focus,.form-field select:focus,.form-field textarea:focus,.extra-size-row :focus-visible{outline:2px solid #7c8d70;outline-offset:1px;border-color:#7c8d70}
 @media(max-width:520px){.order-fields{grid-template-columns:1fr}.form-field-wide{grid-column:auto}.extra-size-row{grid-template-columns:minmax(0,1fr) 94px auto;gap:6px}}
 
+/* Variantes fotográficas individuales por color */
+.garment-photo{background-size:var(--garment-sheet-size,200% 200%);background-position:var(--tile-x,50%) var(--tile-y,50%)}
+.garment-photo::after{display:none!important}
+.kind-sudadera .garment-photo{background-size:contain;background-position:center}
+.order-form{margin:0}
+.button-email{width:100%;min-height:44px;border:0;background:#287747;color:#fff;text-align:center;cursor:pointer}
+.button-email:hover:not(:disabled){background:#1f633a}
+.button-email:disabled{background:#aeb7ad;color:#fff;cursor:not-allowed}
+.button-email:focus-visible{outline:2px solid #486848;outline-offset:3px}
+.order-consent a{color:#405b3f;text-decoration:underline;text-underline-offset:2px}
 
 

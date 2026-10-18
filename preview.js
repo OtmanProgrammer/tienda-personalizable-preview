@@ -11,6 +11,11 @@ const colorCatalog = {
   ],
   sudadera: [['Blanco', '#ffffff']]
 };
+const colorPhotoSheets = {
+  camiseta: { image: 'camiseta-colores.png', columns: 4, rows: 3 },
+  polo: { image: 'polo-colores.png', columns: 4, rows: 2 },
+  sudadera: { image: 'sudadera-blanca.png', columns: 1, rows: 1 }
+};
 const sizeCatalog = {
   camiseta: {
     sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
@@ -146,7 +151,16 @@ function update() {
   document.getElementById('garment-size-label').textContent = sizeRows.length > 1 ? 'TALLAS VARIAS' : `TALLA ${sizeRows[0]?.[0] || 'POR CONFIRMAR'}`;
   document.getElementById('color-label').textContent = (selectedColor?.[0] || 'COLOR POR CONFIRMAR').toLocaleUpperCase('es');
   garmentPhoto.setAttribute('aria-label', `Previsualización ilustrativa de ${kindNames[kind].toLowerCase()} en ${selectedColor?.[0] || 'color por confirmar'}`);
-  stage.style.setProperty('--garment-sheet', 'url("garment-preview-framed.png")');
+  const photoSheet = colorPhotoSheets[kind];
+  const colorIndex = Math.max(0, (colorCatalog[kind] || []).findIndex(([, hex]) => hex === color));
+  const column = colorIndex % photoSheet.columns;
+  const row = Math.floor(colorIndex / photoSheet.columns);
+  const xPercent = photoSheet.columns === 1 ? 50 : (column / (photoSheet.columns - 1)) * 100;
+  const yPercent = photoSheet.rows === 1 ? 50 : (row / (photoSheet.rows - 1)) * 100;
+  stage.style.setProperty('--garment-sheet', `url("${photoSheet.image}")`);
+  stage.style.setProperty('--garment-sheet-size', `${photoSheet.columns * 100}% ${photoSheet.rows * 100}%`);
+  stage.style.setProperty('--tile-x', `${xPercent}%`);
+  stage.style.setProperty('--tile-y', `${yPercent}%`);
   stage.style.setProperty('--garment-color', selectedColor?.[1] || '#f4f0e7');
   stage.classList.remove('kind-camiseta', 'kind-polo', 'kind-sudadera');
   stage.classList.add(`kind-${kind}`);
@@ -156,11 +170,13 @@ function update() {
   document.getElementById('price-value').textContent = priced ? `${(qty * (7 + Math.max(0, count - 1))).toFixed(2).replace('.', ',')} €` : 'Por definir';
   document.getElementById('price-note').hidden = !priced;
   document.getElementById('no-price-note').hidden = priced;
-  updateOrderLink({ qty, count, selectedColor, priced, sizeRows });
+  updateOrderForm({ qty, count, selectedColor, priced, sizeRows });
 }
 
-const orderConsent = document.getElementById('whatsapp-consent');
-const orderLink = document.getElementById('whatsapp-order');
+const orderConsent = document.getElementById('email-consent');
+const orderForm = document.getElementById('order-form');
+const orderButton = document.getElementById('email-order');
+const orderMessage = document.getElementById('order-message');
 const orderStatus = document.getElementById('order-status');
 const orderTitle = document.getElementById('order-title');
 const orderIntro = document.getElementById('order-intro');
@@ -175,19 +191,19 @@ const designText = document.getElementById('design-text');
 const designFile = document.getElementById('design-file');
 const orderNotes = document.getElementById('order-notes');
 
-function updateOrderLink({ qty, count, selectedColor, priced, sizeRows }) {
+function updateOrderForm({ qty, count, selectedColor, priced, sizeRows }) {
   const isShirt = kind === 'camiseta';
   const isSmallPrint = designSize.value === 'small';
   const total = qty * (7 + Math.max(0, count - 1));
   const title = isShirt && isSmallPrint ? 'Pide tu camiseta' : 'Solicita tu presupuesto';
   orderTitle.textContent = title;
-  orderButtonLabel.textContent = isShirt && isSmallPrint ? 'Solicitar camiseta por WhatsApp' : 'Pedir presupuesto por WhatsApp';
+  orderButtonLabel.textContent = isShirt && isSmallPrint ? 'Enviar solicitud por correo' : 'Pedir presupuesto por correo';
   orderIntro.textContent = isShirt && isSmallPrint
     ? `La camiseta cuesta 7 € con un diseño pequeño incluido; cada diseño pequeño adicional suma 1 € por prenda. Total estimado: ${total.toFixed(2).replace('.', ',')} €.`
     : 'El precio de esta combinación está pendiente de configurar; solicita presupuesto y confirma disponibilidad antes de producir.';
   orderFootnote.textContent = deliveryMethod.value === 'Consultar envío'
-    ? 'El sitio no guarda la solicitud ni sube archivos. Coste, zona, transportista y plazo de envío se confirman por WhatsApp; no hay pagos online.'
-    : 'El sitio no guarda la solicitud ni sube archivos. Adjunta el diseño en el chat. La disponibilidad y la recogida se confirman contigo; pago en efectivo al recoger.';
+    ? 'La solicitud y el archivo adjunto se enviarán por correo. Coste, zona, transportista y plazo de envío se confirman antes de producir; no hay pagos online.'
+    : 'La solicitud y el archivo adjunto se enviarán por correo. La disponibilidad y el punto de recogida se confirman contigo; pago en efectivo al recoger.';
   const sizeSummary = sizeRows.map(([size, sizeQty]) => `${size} × ${sizeQty}`).join(', ');
   const name = customerName.value.trim();
   const emailValid = !customerEmail.value.trim() || customerEmail.checkValidity();
@@ -202,7 +218,7 @@ function updateOrderLink({ qty, count, selectedColor, priced, sizeRows }) {
     `Diseño: ${isSmallPrint ? `${count} pequeño${count === 1 ? '' : 's'}` : '1 grande'}.`,
     `Zona preferida: ${document.getElementById('print-location').value}.`,
     designText.value.trim() ? `Texto para imprimir: ${designText.value.trim()}.` : '',
-    fileName ? `Archivo seleccionado para adjuntar manualmente en WhatsApp: ${fileName}.` : '',
+    fileName ? `Archivo adjunto: ${fileName}.` : 'No se adjuntó archivo de diseño.',
     `Entrega solicitada: ${deliveryMethod.value}.`,
     orderNotes.value.trim() ? `Observaciones: ${orderNotes.value.trim()}.` : '',
     priced ? `Total estimado: ${total.toFixed(2).replace('.', ',')} €.` : 'Precio: pendiente de presupuesto.',
@@ -210,17 +226,17 @@ function updateOrderLink({ qty, count, selectedColor, priced, sizeRows }) {
       ? 'Confirma disponibilidad, coste y plazo del envío antes de producir. Entiendo que no hay pago online.'
       : 'Confirma disponibilidad y punto de recogida, por favor. Entiendo que pagaré en efectivo al recoger.'
   ].filter(Boolean);
-  orderLink.href = `https://wa.me/34614683073?text=${encodeURIComponent(lines.join('\n'))}`;
+  orderMessage.value = lines.join('\n');
   const enabled = orderConsent.checked && name.length > 0 && emailValid;
-  orderLink.classList.toggle('is-disabled', !enabled);
-  orderLink.setAttribute('aria-disabled', String(!enabled));
+  orderButton.disabled = !enabled;
+  orderButton.classList.toggle('is-disabled', !enabled);
   orderStatus.textContent = !name
     ? 'Escribe el nombre de la persona responsable.'
     : !emailValid
       ? 'Revisa el formato del correo electrónico.'
       : !orderConsent.checked
         ? 'Marca la casilla para continuar.'
-        : 'Listo: se abrirá WhatsApp con el borrador; pulsa Enviar allí para remitirlo.';
+        : 'Listo: al pulsar el botón, la solicitud se enviará por correo.';
 }
 
 orderConsent.addEventListener('change', update);
@@ -228,8 +244,21 @@ document.querySelectorAll('#customer-name,#customer-phone,#customer-email,#desig
 document.getElementById('design-file').addEventListener('change', update);
 document.querySelectorAll('#delivery-method,#print-location').forEach(input => input.addEventListener('change', update));
 document.getElementById('add-size-row').addEventListener('click', addExtraSizeRow);
-orderLink.addEventListener('click', event => {
-  if (!orderConsent.checked || !customerName.value.trim() || !customerEmail.checkValidity()) event.preventDefault();
+orderForm.addEventListener('submit', event => {
+  const file = designFile.files?.[0];
+  if (file && file.size > 10 * 1024 * 1024) {
+    event.preventDefault();
+    orderStatus.textContent = 'El archivo supera el límite de 10 MB. Elige uno más pequeño.';
+    return;
+  }
+  if (!orderConsent.checked || !customerName.value.trim() || !customerEmail.checkValidity()) {
+    event.preventDefault();
+    orderStatus.textContent = 'Completa el nombre, revisa el correo y acepta el aviso para continuar.';
+    return;
+  }
+  update();
+  orderStatus.textContent = 'Enviando tu solicitud por correo…';
+  orderButton.disabled = true;
 });
 
 kindButtons.forEach(button => button.addEventListener('click', () => {
@@ -242,4 +271,6 @@ document.querySelectorAll('[data-qty]').forEach(button => button.addEventListene
 document.querySelectorAll('[data-design]').forEach(button => button.addEventListener('click', () => { designs.value = String(Number(designs.value) + (button.dataset.design === 'plus' ? 1 : -1)); update(); }));
 quantity.addEventListener('input', update); designs.addEventListener('input', update); designSize.addEventListener('change', update); garmentSize.addEventListener('change', update);
 renderSwatches(); renderSizeGuide(); update();
-
+if (new URLSearchParams(window.location.search).get('pedido') === 'recibido') {
+  orderStatus.textContent = 'Solicitud enviada. Te responderemos por correo para confirmar precio, disponibilidad y entrega.';
+}

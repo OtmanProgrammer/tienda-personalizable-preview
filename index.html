@@ -6,16 +6,14 @@
   <meta name="theme-color" content="#f7f5ef">
   <meta name="description" content="Vista de demostración de Tu diseño, tu prenda. No se aceptan pedidos en esta página.">
   <title>Tu diseño, tu prenda — Vista de demostración</title>
-  <link rel="stylesheet" href="styles.css?v=3">
-  <script src="preview.js?v=3" defer></script>
+  <link rel="stylesheet" href="styles.css?v=5">
+  <script src="preview.js?v=5" defer></script>
   <style>
-    .garment-art{position:absolute;z-index:1;left:50%;top:48%;width:min(68%,230px);height:94%;transform:translate(-50%,-50%);overflow:visible;filter:drop-shadow(0 8px 10px rgba(30,33,29,.12))}
-    .garment-art .fabric{fill:var(--garment-color,#f4f0e7);stroke:#d3cec2;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
-    .garment-art .seam{fill:none;stroke:#d6d1c6;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-    .garment-art .detail{fill:#e5dfd3;stroke:#d3cec2;stroke-width:1.2;stroke-linejoin:round}
-    .garment-art .art-tee,.garment-art .art-polo,.garment-art .art-camisa,.garment-art .art-hoodie{display:none}
-    .kind-camiseta .garment-art .art-tee,.kind-polo .garment-art .art-polo,.kind-camisa .garment-art .art-camisa,.kind-sudadera .garment-art .art-hoodie{display:inline}
-    @media(max-width:520px){.garment-art{width:min(72%,220px);height:94%}}
+    .garment-photo{position:absolute;z-index:1;left:50%;top:47%;width:min(86%,300px);aspect-ratio:1/1;transform:translate(-50%,-50%);background-image:var(--garment-sheet,url('garment-preview-sprite.png'));background-size:200% 200%;background-repeat:no-repeat}
+    .kind-camiseta .garment-photo{background-position:0 0}
+    .kind-polo .garment-photo{background-position:100% 0}
+    .kind-camisa .garment-photo{background-position:0 100%}
+    .kind-sudadera .garment-photo{background-position:100% 100%}
   </style>
 </head>
 <body>
@@ -72,36 +70,7 @@
           <aside class="preview-card" aria-label="Previsualización de la prenda y precio de ejemplo">
             <div class="preview-top"><span>VISTA PREVIA</span><span><i></i> DEMO</span></div>
             <div class="garment-stage kind-camiseta" id="garment-stage">
-              <svg class="garment-art" viewBox="0 0 240 280" role="img" aria-labelledby="garment-svg-title">
-                <title id="garment-svg-title">Previsualización de la prenda</title>
-                <g class="art-tee">
-                  <path class="fabric" d="M82 29 102 20Q120 42 138 20L158 29 190 41 221 77 200 107 180 94V254Q180 266 168 266H72Q60 266 60 254V94L40 107 19 77 50 41Z"/>
-                  <path d="M101 24Q120 51 139 24L137 39Q120 56 103 39Z" fill="#f7f6f1"/>
-                  <path class="seam" d="M101 24Q120 51 139 24M60 254Q120 262 180 254M41 78 61 96M199 78 179 96"/>
-                </g>
-                <g class="art-polo">
-                  <path class="fabric" d="M82 29 102 20Q120 42 138 20L158 29 190 41 221 77 200 107 180 94V254Q180 266 168 266H72Q60 266 60 254V94L40 107 19 77 50 41Z"/>
-                  <path class="detail" d="M102 20 120 45 106 55 91 28ZM138 20 120 45 134 55 149 28Z"/>
-                  <path class="seam" d="M120 45V91M60 254Q120 262 180 254M41 78 61 96M199 78 179 96"/>
-                  <path class="detail" d="M115 48H125V91H115Z"/>
-                  <circle cx="120" cy="58" r="1.8" fill="#9b9386"/><circle cx="120" cy="70" r="1.8" fill="#9b9386"/><circle cx="120" cy="82" r="1.8" fill="#9b9386"/>
-                </g>
-                <g class="art-camisa">
-                  <path class="fabric" d="M84 30 105 20Q120 42 135 20L156 30 181 38 204 111 182 122 163 79 170 262H70L77 79 58 122 36 111 59 38Z"/>
-                  <path class="detail" d="M105 20 120 45 108 57 94 29ZM135 20 120 45 132 57 146 29Z"/>
-                  <path class="seam" d="M120 45V258M70 253Q120 260 170 253M58 111 77 92M182 92 204 111"/>
-                  <path class="detail" d="M36 111 56 118 50 137 30 130ZM184 118 204 111 210 130 190 137Z"/>
-                  <circle cx="120" cy="69" r="2" fill="#9b9386"/><circle cx="120" cy="96" r="2" fill="#9b9386"/><circle cx="120" cy="123" r="2" fill="#9b9386"/><circle cx="120" cy="150" r="2" fill="#9b9386"/><circle cx="120" cy="177" r="2" fill="#9b9386"/><circle cx="120" cy="204" r="2" fill="#9b9386"/>
-                </g>
-                <g class="art-hoodie">
-                  <path class="fabric" d="M83 37 61 45 22 90 42 116 65 98 66 248 73 264H167L174 248V98L197 116 218 90 179 45 157 37Q148 51 120 51T83 37Z"/>
-                  <path class="detail" d="M83 38Q84 10 120 9Q156 10 157 38L147 55Q120 47 93 55Z"/>
-                  <path class="seam" d="M93 54Q120 68 147 54M67 248H82M158 248H173M75 264Q120 270 165 264"/>
-                  <path class="seam" d="M111 56V103M129 56V103"/>
-                  <path class="detail" d="M77 178Q120 190 163 178L153 223Q120 231 87 223Z"/>
-                  <path class="seam" d="M87 223Q120 230 153 223M42 116 65 98M198 98 218 116"/>
-                </g>
-              </svg>
+              <div class="garment-photo" id="garment-photo" role="img" aria-label="Previsualización de camiseta"></div>
               <div class="shirt-print" aria-hidden="true">TU<br>DISEÑO<span>✳</span></div>
               <div class="stage-caption"><span id="garment-label">CAMISETA</span><span id="color-label">BLANCO NATURAL</span></div>
             </div>
@@ -120,3 +89,4 @@
   <footer class="site-footer"><div class="wrap footer-top"><a class="brand" href="#inicio"><span class="brand-mark">td<span>/</span></span><span class="brand-name">TU DISEÑO,<br>TU PRENDA</span></a><p>Un poco de color.<br>Una idea muy tuya.</p><a href="#inicio">Volver arriba ↑</a></div><div class="wrap footer-bottom"><span>Vista demostrativa · 2026</span><span>Sin pedidos ni recogida de datos <b>✳</b></span></div></footer>
 </body>
 </html>
+

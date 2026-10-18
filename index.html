@@ -56,7 +56,7 @@
             <div class="choice-row" role="group" aria-label="Tipo de prenda"><button type="button" class="choice active" data-kind="camiseta">Camiseta</button><button type="button" class="choice" data-kind="polo">Polo</button><button type="button" class="choice" data-kind="camisa">Camisa</button><button type="button" class="choice" data-kind="sudadera">Sudadera</button></div>
             <div class="control-divider"></div>
             <div class="control-columns">
-              <div class="control-block"><label class="control-label">Color de ejemplo</label><div class="swatches" role="group" aria-label="Colores de ejemplo"><button type="button" class="swatch active" aria-label="Blanco natural" title="Blanco natural" data-color="#f4f0e7"><i></i></button><button type="button" class="swatch" aria-label="Verde salvia" title="Verde salvia" data-color="#a6ae98"><i></i></button><button type="button" class="swatch" aria-label="Amarillo vivo" title="Amarillo vivo" data-color="#efd151"><i></i></button></div><p class="helper">Muestras visuales; colores disponibles por confirmar.</p></div>
+              <div class="control-block color-control"><label class="control-label">Color de ejemplo</label><div class="swatches" id="demo-swatches" role="group" aria-label="Colores del catálogo de ejemplo"></div><p class="helper" id="color-helper">La camiseta técnica tiene 12 tonos anunciados; existencia por confirmar.</p></div>
               <div class="control-block"><label class="control-label" for="preview-quantity">Cantidad de ejemplo</label><div class="quantity"><button type="button" data-qty="minus" aria-label="Reducir cantidad">−</button><input id="preview-quantity" type="number" min="1" max="99" value="1" inputmode="numeric"><button type="button" data-qty="plus" aria-label="Aumentar cantidad">+</button></div><p class="helper">No reserva existencias.</p></div>
             </div>
             <div class="control-divider"></div>
@@ -72,7 +72,7 @@
             <div class="garment-stage kind-camiseta" id="garment-stage">
               <div class="garment-photo" id="garment-photo" role="img" aria-label="Previsualización de camiseta"></div>
               <div class="shirt-print" aria-hidden="true">TU<br>DISEÑO<span>✳</span></div>
-              <div class="stage-caption"><span id="garment-label">CAMISETA</span><span id="color-label">BLANCO NATURAL</span></div>
+              <div class="stage-caption"><span id="garment-label">CAMISETA</span><span id="color-label">BLANCO</span></div>
             </div>
             <div class="price-panel"><div><span class="price-label">Precio de ejemplo</span><strong id="price-value">7,00 €</strong></div><span class="price-unit" id="price-unit">1 prenda</span></div>
             <p class="price-note" id="price-note">Camiseta: 7 € con un diseño pequeño incluido; cada diseño pequeño adicional suma 1 €. Importe orientativo, pendiente de configuración final.</p>
@@ -83,10 +83,10 @@
       </div>
     </section>
 
-    <section class="materials section wrap" id="materiales"><div class="materials-mark" aria-hidden="true">✳</div><div><p class="eyebrow"><span></span> UNA NOTA SOBRE SUBLIMACIÓN</p><h2>El tejido <em>sí importa.</em></h2></div><p class="materials-copy">La sublimación tradicional funciona mejor en prendas blancas o claras con alto contenido de poliéster. No es adecuada para cualquier tejido o color: la compatibilidad se confirma para cada prenda antes de producir.</p></section>
+    <section class="materials section wrap" id="materiales"><div class="materials-mark" aria-hidden="true">✳</div><div><p class="eyebrow"><span></span> UNA NOTA SOBRE SUBLIMACIÓN</p><h2>El tejido <em>sí importa.</em></h2></div><p class="materials-copy">La sublimación tradicional funciona mejor en prendas blancas o claras con alto contenido de poliéster. No imprime tinta blanca; la tela puede cambiar el resultado. La foto es ilustrativa y la compatibilidad se confirma antes de producir.</p></section>
     <section class="pickup"><div class="wrap pickup-inner"><span aria-hidden="true">⌖</span><div><p class="eyebrow">RECOGIDA Y PAGO</p><h2>Se acuerdan al confirmar.</h2></div><p>El punto de recogida sigue pendiente. El pago previsto es en efectivo al recoger. Esta demostración no gestiona pedidos.</p></div></section>
   </main>
-  <footer class="site-footer"><div class="wrap footer-top"><a class="brand" href="#inicio"><span class="brand-mark">td<span>/</span></span><span class="brand-name">TU DISEÑO,<br>TU PRENDA</span></a><p>Un poco de color.<br>Una idea muy tuya.</p><a href="#inicio">Volver arriba ↑</a></div><div class="wrap footer-bottom"><span>Vista demostrativa · 2026</span><span>Sin pedidos ni recogida de datos <b>✳</b></span></div></footer>
+  <footer class="site-footer"><div class="wrap footer-top"><a class="brand" href="#inicio"><span class="brand-mark">td<span>/</span></span><span class="brand-name">TU DISEÑO,<br>TU PRENDA</span></a><p>Un poco de color.<br>Una idea muy tuya.</p><a href="tel:+34614683073">Contacto: +34 614 683 073</a><a href="#inicio">Volver arriba ↑</a></div><div class="wrap footer-bottom"><span>Vista demostrativa · 2026</span><span>Sin pedidos ni recogida de datos <b>✳</b></span></div></footer>
 </body>
 </html>
 

@@ -115,7 +115,50 @@ function update() {
   document.getElementById('price-value').textContent = priced ? `${(qty * (7 + Math.max(0, count - 1))).toFixed(2).replace('.', ',')} €` : 'Por definir';
   document.getElementById('price-note').hidden = !priced;
   document.getElementById('no-price-note').hidden = priced;
+  updateOrderLink({ qty, count, selectedColor, priced });
 }
+
+const orderConsent = document.getElementById('whatsapp-consent');
+const orderLink = document.getElementById('whatsapp-order');
+const orderStatus = document.getElementById('order-status');
+const orderTitle = document.getElementById('order-title');
+const orderIntro = document.getElementById('order-intro');
+const orderFootnote = document.getElementById('order-footnote');
+const orderButtonLabel = document.getElementById('order-button-label');
+
+function updateOrderLink({ qty, count, selectedColor, priced }) {
+  const isShirt = kind === 'camiseta';
+  const isSmallPrint = designSize.value === 'small';
+  const total = qty * (7 + Math.max(0, count - 1));
+  const reference = `TD-${new Date().toISOString().slice(0, 10).replaceAll('-', '')}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+  const title = isShirt && isSmallPrint ? 'Pide tu camiseta' : 'Solicita tu presupuesto';
+  orderTitle.textContent = title;
+  orderButtonLabel.textContent = isShirt && isSmallPrint ? 'Solicitar camiseta por WhatsApp' : 'Pedir presupuesto por WhatsApp';
+  orderIntro.textContent = isShirt && isSmallPrint
+    ? `La camiseta cuesta 7 € con un diseño pequeño incluido; cada diseño pequeño adicional suma 1 € por prenda. Total estimado: ${total.toFixed(2).replace('.', ',')} €.`
+    : 'El precio de esta combinación está pendiente de configurar; solicita presupuesto y confirma disponibilidad antes de producir.';
+  orderFootnote.textContent = 'La página no guarda la solicitud ni sube archivos. Incluye tu nombre y adjunta el diseño en el chat. La disponibilidad y la recogida se confirman contigo; pago en efectivo al recoger.';
+  const lines = [
+    `Hola, quiero solicitar ${isShirt && isSmallPrint ? 'un pedido de camiseta' : 'presupuesto de personalización'}.`,
+    `Referencia: ${reference}`,
+    `Prenda: ${kindNames[kind]}; color: ${selectedColor?.[0] || 'por confirmar'}; talla: ${garmentSize.value}; cantidad: ${qty}.`,
+    `Diseño: ${isSmallPrint ? `${count} pequeño${count === 1 ? '' : 's'}` : '1 grande'}.`,
+    priced ? `Total estimado: ${total.toFixed(2).replace('.', ',')} €.` : 'Precio: pendiente de presupuesto.',
+    'Adjuntaré el diseño en este chat. Confirma disponibilidad y punto de recogida, por favor. Entiendo que pagaré en efectivo al recoger.'
+  ];
+  orderLink.href = `https://wa.me/34614683073?text=${encodeURIComponent(lines.join('\n'))}`;
+  const enabled = orderConsent.checked;
+  orderLink.classList.toggle('is-disabled', !enabled);
+  orderLink.setAttribute('aria-disabled', String(!enabled));
+  orderStatus.textContent = enabled
+    ? 'Listo: se abrirá WhatsApp con el borrador; pulsa Enviar allí para remitirlo.'
+    : 'Marca la casilla para continuar.';
+}
+
+orderConsent.addEventListener('change', () => update());
+orderLink.addEventListener('click', event => {
+  if (!orderConsent.checked) event.preventDefault();
+});
 
 kindButtons.forEach(button => button.addEventListener('click', () => {
   kind = button.dataset.kind;

@@ -194,7 +194,7 @@ h2 { font:600 clamp(32px,4vw,45px)/1.12 var(--serif); letter-spacing:-.02em; mar
 .size-guide th{background:#f3f4ef;color:#465044;font-size:9px}
 .size-guide a{display:inline-block;margin-top:5px;color:#4f6650;font-size:10px;text-decoration:underline;text-underline-offset:2px}
 .category-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-.stage-caption{gap:8px;font-size:8px}
+ .stage-caption{gap:8px;font-size:8px}
 .garment-photo{isolation:isolate}
 .garment-photo::after{content:"";position:absolute;inset:0;z-index:2;background:var(--garment-color,#f4f0e7);opacity:.62;mix-blend-mode:multiply;pointer-events:none}
 .kind-camiseta .garment-photo::after{clip-path:polygon(43% 9%,56% 9%,64% 12%,71% 15%,87% 32%,100% 39%,89% 49%,79% 43%,78% 88%,22% 88%,21% 43%,11% 49%,0 39%,13% 32%,29% 15%,36% 12%)}
@@ -202,5 +202,30 @@ h2 { font:600 clamp(32px,4vw,45px)/1.12 var(--serif); letter-spacing:-.02em; mar
 .kind-sudadera .garment-photo::after{clip-path:polygon(38% 12%,62% 12%,71% 20%,85% 22%,98% 38%,89% 49%,78% 44%,77% 84%,23% 84%,22% 44%,11% 49%,2% 38%,15% 22%,29% 20%)}
 @media(max-width:800px){.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.category-grid{grid-template-columns:1fr}}
+
+/* Vista de prenda y solicitud WhatsApp */
+.garment-stage{min-height:275px}
+.garment-photo{top:45%;width:min(72%,220px)}
+.garment-photo::after{opacity:.42;mix-blend-mode:multiply}
+.kind-camiseta .garment-photo::after{clip-path:polygon(43% 9%,56% 9%,62% 13%,67% 14%,77% 20%,86% 36%,81% 43%,71% 38%,70% 87%,30% 87%,29% 38%,19% 43%,14% 36%,23% 20%,33% 14%,39% 13%)}
+.kind-polo .garment-photo::after{clip-path:polygon(45% 9%,56% 9%,62% 13%,67% 14%,77% 20%,86% 36%,81% 43%,71% 38%,70% 87%,30% 87%,29% 38%,19% 43%,14% 36%,23% 20%,33% 14%,39% 13%)}
+.kind-sudadera .garment-photo::after{display:none}
+.stage-caption{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;left:12px;right:12px;bottom:10px;gap:6px;font-size:8px;line-height:1.2}
+.stage-caption span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stage-caption span:nth-child(2){text-align:center}
+.stage-caption span:last-child{text-align:right}
+.preview-disclaimer{margin:-6px 0 12px;color:#85897f;font-size:9px;line-height:1.4}
+.order-box{margin-top:15px;padding:16px;border:1px solid #e7e9df;border-radius:7px;background:#f7f8f4}
+.order-box .eyebrow{margin-bottom:7px;font-size:9px}
+.order-box h3{margin:0 0 6px;font:600 20px var(--serif)}
+.order-intro,.order-footnote{margin:0 0 11px;color:#686e63;font-size:10px;line-height:1.5}
+.order-consent{display:flex;gap:9px;align-items:flex-start;margin:12px 0;font-size:9px;line-height:1.45;color:#555b51;cursor:pointer}
+.order-consent input{flex:0 0 auto;margin:2px 0 0;accent-color:#486848}
+.button-whatsapp{width:100%;min-height:44px;background:#287747;color:#fff;text-align:center}
+.button-whatsapp:hover{background:#1f633a}
+.button-whatsapp.is-disabled{background:#aeb7ad;color:#fff;cursor:not-allowed}
+.order-status{min-height:14px;margin:8px 0;color:#626c5f;font-size:9px;line-height:1.4}
+.order-footnote{margin:0;color:#777d72;font-size:9px}
+@media(max-width:520px){.garment-stage{min-height:265px}.garment-photo{width:min(76%,220px)}.order-box{padding:14px}.stage-caption{font-size:7px}}
 
 

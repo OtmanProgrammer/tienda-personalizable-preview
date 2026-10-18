@@ -171,7 +171,7 @@ h2 { font:600 clamp(32px,4vw,45px)/1.12 var(--serif); letter-spacing:-.02em; mar
 }
 
 /* Fotografías de prendas para la colección y la vista previa */
-.category-icon{right:16px;top:28px;width:104px;height:108px;border-radius:5px;background-color:#f7f6f1;background-image:url('garment-preview-sprite.png');background-size:200% 200%;background-repeat:no-repeat;clip-path:none}
+.category-icon{right:16px;top:28px;width:104px;height:108px;border-radius:5px;background-color:#f7f6f1;background-image:url('garment-preview-framed.png');background-size:200% 200%;background-repeat:no-repeat;clip-path:none}
 .category-icon.tee{background-position:0 0}
 .category-icon.polo{background-position:100% 0}
 .category-icon.camisa{background-position:0 100%}
@@ -180,7 +180,8 @@ h2 { font:600 clamp(32px,4vw,45px)/1.12 var(--serif); letter-spacing:-.02em; mar
 @media(max-width:800px){.category-icon{right:16px;top:27px;width:104px;height:108px;transform:scale(.83);transform-origin:top right}}
 @media(max-width:520px){.category-icon{right:18px;top:24px;width:104px;height:108px;transform:scale(.74);transform-origin:top right}}
 
-.category-icon.hoodie{background-image:url('garment-preview-sprite.png');background-color:#f7f6f1}
+.category-icon.hoodie{background-image:url('garment-preview-framed.png');background-color:#f7f6f1}
 
-.category-icon.hoodie{background:#f7f6f1 url('garment-preview-sprite.png') 100% 100%/200% 200% no-repeat}
+.category-icon.hoodie{background:#f7f6f1 url('garment-preview-framed.png') 100% 100%/200% 200% no-repeat}
+
 

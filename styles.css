@@ -185,3 +185,15 @@ h2 { font:600 clamp(32px,4vw,45px)/1.12 var(--serif); letter-spacing:-.02em; mar
   .footer-top { min-height:93px; }
   .footer-bottom { font-size:8px; }
 }
+
+
+/* Ilustraciones SVG de prendas seleccionables */
+.category-grid{grid-template-columns:repeat(4,1fr)}
+.category-icon.camisa i{left:26px;top:2px;width:20px;height:18px;border-radius:0;clip-path:polygon(0 0,100% 0,67% 100%,50% 68%,33% 100%);background:var(--green)}
+.garment-stage{position:relative;display:grid;place-items:center;flex:1;min-height:235px;margin:17px 0 15px;background:#f7f6f1;border-radius:5px;overflow:hidden}
+.shirt-print{position:absolute;z-index:2;left:50%;top:43%;width:52px;height:52px;display:grid;place-content:center;text-align:center;background:#ed8055;color:#fff;font:700 11px/1.08 Arial,sans-serif;letter-spacing:.08em;transform:translate(-50%,-50%) rotate(-6deg);box-shadow:0 4px 10px #0002}
+.shirt-print span{font-size:16px;color:#f8d45d}
+.garment-stage.large .shirt-print{width:83px;height:83px;left:50%;top:43%;font-size:14px}
+.stage-caption{position:absolute;z-index:3;left:15px;right:15px;bottom:12px;display:flex;justify-content:space-between;color:#898c82;font-size:8px;letter-spacing:.11em;text-shadow:0 1px 3px rgba(247,245,239,.9)}
+@media(max-width:800px){.category-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.category-grid{grid-template-columns:1fr}}

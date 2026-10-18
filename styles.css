@@ -161,7 +161,7 @@ h2 { font:600 clamp(32px,4vw,45px)/1.12 var(--serif); letter-spacing:-.02em; mar
   .choice { font-size:10px; }
   .control-columns { gap:14px; }
   .color-control { grid-column:1/-1; }
-  .swatches { grid-template-columns:repeat(6,minmax(0,1fr)); }
+  .swatches { grid-template-columns:repeat(3,minmax(0,1fr)); }
   .materials { padding-block:50px; }
   .materials h2 { font-size:29px; }
   .pickup-inner { padding-block:30px; }

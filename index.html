@@ -9,10 +9,9 @@
     <link rel="stylesheet" href="styles.css?v=14">
     <script src="preview.js?v=14" defer></script>
   <style>
-    .garment-photo{position:absolute;z-index:1;left:50%;top:48%;width:min(76%,240px);aspect-ratio:1/1;transform:translate(-50%,-50%);background-image:var(--garment-sheet,url('garment-preview-framed.png'));background-size:200% 200%;background-repeat:no-repeat}
-    .kind-camiseta .garment-photo{background-position:0 0}
-    .kind-polo .garment-photo{background-position:100% 0}
-    .kind-sudadera .garment-photo{background-position:100% 100%}
+    .garment-photo{position:absolute;z-index:1;left:50%;top:48%;width:min(76%,240px);aspect-ratio:1/1;transform:translate(-50%,-50%);background-image:var(--garment-sheet,url('garment-preview-framed.png'));background-size:var(--garment-sheet-size,200% 200%);background-position:var(--tile-x,50%) var(--tile-y,50%);background-repeat:no-repeat}
+    .kind-camiseta .garment-photo,.kind-polo .garment-photo{background-position:var(--tile-x,50%) var(--tile-y,50%)}
+    .kind-sudadera .garment-photo{background-size:contain;background-position:center}
   </style>
 </head>
 <body>
@@ -90,7 +89,7 @@
               <div><p class="eyebrow"><span></span> SOLICITUD POR CORREO</p><h3 id="order-title">Pide tu camiseta</h3><p class="order-intro" id="order-intro">La camiseta cuesta 7 € con un diseño pequeño incluido. Cada diseño pequeño adicional suma 1 € por prenda.</p></div>
               <div class="order-details">
                 <div class="order-fields">
-                  <div class="form-field"><label for="customer-name">Responsable / nombre completo *</label><input id="customer-name" name="nombre" type="text" maxlength="80" autocomplete="name" placeholder="Tu nombre" required></div>
+                  <div class="form-field"><label for="customer-name">Responsable / nombre completo *</label><input id="customer-name" name="name" type="text" maxlength="80" autocomplete="name" placeholder="Tu nombre" required></div>
                   <div class="form-field"><label for="customer-phone">Teléfono adicional (opcional)</label><input id="customer-phone" name="telefono" type="tel" maxlength="25" autocomplete="tel" placeholder="Tu teléfono"></div>
                   <div class="form-field"><label for="customer-email">Correo para responderte (opcional)</label><input id="customer-email" name="email" type="email" maxlength="120" autocomplete="email" placeholder="tu@correo.com"></div>
                   <div class="form-field"><label for="delivery-method">Entrega preferida</label><select id="delivery-method"><option value="Recogida a convenir">Recogida a convenir</option><option value="Consultar envío">Consultar envío</option></select><small>Gastos de envío no incluidos; coste, zona y plazo pendientes de confirmar.</small></div>

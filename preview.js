@@ -12,7 +12,7 @@ const colorCatalog = {
   sudadera: [['Blanco', '#ffffff']]
 };
 const colorPhotoSheets = {
-  camiseta: { image: 'camiseta-colores.png', columns: 4, rows: 3 },
+  camiseta: { image: 'camiseta-colores-v2.png', columns: 4, rows: 3 },
   polo: { image: 'polo-colores.png', columns: 4, rows: 2 },
   sudadera: { image: 'sudadera-blanca.png', columns: 1, rows: 1 }
 };

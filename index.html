@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f7f5ef">
-  <meta name="description" content="Personaliza tu camiseta y envía una solicitud por WhatsApp. Efectivo al recoger.">
-  <title>Tu diseño, tu prenda — Pedidos de camisetas</title>
-    <link rel="stylesheet" href="styles.css?v=11">
-    <script src="preview.js?v=11" defer></script>
+  <meta name="description" content="Personaliza camisetas, polos y sudaderas. Solicita tu pedido o presupuesto por WhatsApp; efectivo al recoger.">
+  <title>Tu diseño, tu prenda — Prendas personalizadas</title>
+    <link rel="stylesheet" href="styles.css?v=13">
+    <script src="preview.js?v=13" defer></script>
   <style>
     .garment-photo{position:absolute;z-index:1;left:50%;top:48%;width:min(76%,240px);aspect-ratio:1/1;transform:translate(-50%,-50%);background-image:var(--garment-sheet,url('garment-preview-framed.png'));background-size:200% 200%;background-repeat:no-repeat}
     .kind-camiseta .garment-photo{background-position:0 0}
@@ -16,7 +16,7 @@
   </style>
 </head>
 <body>
-  <div class="demo-banner"><span class="demo-dot"></span> Solicitudes de camisetas por WhatsApp · Sin pago online</div>
+  <div class="demo-banner"><span class="demo-dot"></span> Solicitudes de prendas por WhatsApp · Sin pago online</div>
   <header class="site-header wrap">
     <a class="brand" href="#inicio" aria-label="Tu diseño, tu prenda, inicio"><span class="brand-mark">td<span>/</span></span><span class="brand-name">TU DISEÑO,<br>TU PRENDA</span></a>
     <nav aria-label="Navegación principal"><a href="#coleccion">Prendas</a><a href="#configurador">Personalizador</a><a href="#materiales">Materiales</a></nav>
@@ -56,13 +56,16 @@
             <div class="control-columns">
               <div class="control-block color-control"><label class="control-label">Color</label><div class="swatches" id="demo-swatches" role="group" aria-label="Elige un color"></div><p class="helper" id="color-helper" aria-live="polite">La camiseta técnica tiene 12 tonos anunciados; existencia por confirmar.</p></div>
               <div class="control-block"><label class="control-label" for="garment-size">Talla solicitada</label><select class="size-select" id="garment-size"></select><p class="helper" id="size-helper">Selecciona una talla.</p></div>
-              <div class="control-block"><label class="control-label" for="preview-quantity">Cantidad de ejemplo</label><div class="quantity"><button type="button" data-qty="minus" aria-label="Reducir cantidad">−</button><input id="preview-quantity" type="number" min="1" max="99" value="1" inputmode="numeric"><button type="button" data-qty="plus" aria-label="Aumentar cantidad">+</button></div><p class="helper">No reserva existencias.</p></div>
+              <div class="control-block"><label class="control-label" for="preview-quantity">Cantidad de esta talla</label><div class="quantity"><button type="button" data-qty="minus" aria-label="Reducir cantidad">−</button><input id="preview-quantity" type="number" min="1" max="99" value="1" inputmode="numeric"><button type="button" data-qty="plus" aria-label="Aumentar cantidad">+</button></div><p class="helper">Añade otras tallas si las necesitas.</p></div>
             </div>
+            <div class="extra-size-rows" id="extra-size-rows"></div>
+            <button class="add-size-row" type="button" id="add-size-row">+ Añadir otra talla</button>
             <div class="control-divider"></div>
-            <div class="step-title step-small"><span>02</span><div><h3>Piensa en tu diseño</h3><p>La zona y el tamaño se acuerdan antes de producir.</p></div></div>
+            <div class="step-title step-small"><span>02</span><div><h3>Prepara tu diseño</h3><p>Elige zona y tamaño, y añade texto o archivo si quieres.</p></div></div>
             <div class="control-columns design-settings">
               <div class="control-block"><label class="control-label" for="design-size">Tamaño de ejemplo</label><select id="design-size"><option value="small">Pequeño</option><option value="large">Grande</option></select></div>
               <div class="control-block"><label class="control-label" for="small-designs">Diseños pequeños</label><div class="quantity"><button type="button" data-design="minus" aria-label="Quitar diseño pequeño">−</button><input id="small-designs" type="number" min="1" max="10" value="1" inputmode="numeric"><button type="button" data-design="plus" aria-label="Añadir diseño pequeño">+</button></div></div>
+              <div class="control-block"><label class="control-label" for="print-location">Zona preferida</label><select id="print-location"><option value="Frontal / pecho">Frontal / pecho</option><option value="Espalda">Espalda</option><option value="Por acordar">Por acordar</option></select><p class="helper">La zona final se confirma antes de producir.</p></div>
             </div>
             <div class="guide-note size-guide" id="size-guide"><span aria-hidden="true">↗</span><div><strong id="size-guide-title">Guía del proveedor</strong><p id="size-guide-note"></p><div id="size-table-wrap"></div><a id="size-source" href="#" target="_blank" rel="noopener noreferrer">Ver ficha de tallas ↗</a></div></div>
           </div>
@@ -70,31 +73,43 @@
             <div class="preview-top"><span>VISTA PREVIA</span><span><i></i> TU SELECCIÓN</span></div>
             <div class="garment-stage kind-camiseta" id="garment-stage">
               <div class="garment-photo" id="garment-photo" role="img" aria-label="Previsualización de camiseta"></div>
-              <div class="shirt-print" aria-hidden="true">TU<br>DISEÑO<span>✳</span></div>
+              <div class="shirt-print" aria-hidden="true"><span class="design-preview-text">TU DISEÑO</span><span class="design-preview-star">✳</span></div>
               <div class="stage-caption"><span id="garment-label">CAMISETA</span><span id="garment-size-label">TALLA XS</span><span id="color-label">BLANCO</span></div>
             </div>
-            <p class="preview-disclaimer">Imagen ilustrativa; el color y la existencia se confirman antes de producir.</p>
+            <p class="preview-disclaimer">Prenda, color y diseño son una vista ilustrativa; el archivo no se previsualiza. Compatibilidad y existencias por confirmar.</p>
             <div class="price-panel"><div><span class="price-label" id="price-label">Total estimado</span><strong id="price-value">7,00 €</strong></div><span class="price-unit" id="price-unit">1 prenda</span></div>
             <p class="price-note" id="price-note">Camiseta: 7 € con un diseño pequeño incluido; cada diseño pequeño adicional suma 1 €.</p>
             <p class="no-price-note" id="no-price-note" hidden>El precio del polo, la sudadera o la impresión grande está pendiente; podrás pedir un presupuesto por WhatsApp.</p>
             <div class="order-box" id="order-box">
               <div><p class="eyebrow"><span></span> SOLICITUD POR WHATSAPP</p><h3 id="order-title">Pide tu camiseta</h3><p class="order-intro" id="order-intro">La camiseta cuesta 7 € con un diseño pequeño incluido. Cada diseño pequeño adicional suma 1 € por prenda.</p></div>
-              <label class="order-consent"><input id="whatsapp-consent" type="checkbox"><span>Entiendo que se abrirá WhatsApp con mi selección. WhatsApp recibirá el texto para preparar el mensaje; el pedido solo se envía cuando pulse Enviar allí.</span></label>
+              <div class="order-details">
+                <div class="order-fields">
+                  <div class="form-field"><label for="customer-name">Responsable / nombre completo *</label><input id="customer-name" type="text" maxlength="80" autocomplete="name" placeholder="Tu nombre" required></div>
+                  <div class="form-field"><label for="customer-phone">Teléfono adicional (opcional)</label><input id="customer-phone" type="tel" maxlength="25" autocomplete="tel" placeholder="Tu teléfono"></div>
+                  <div class="form-field"><label for="customer-email">Correo (opcional)</label><input id="customer-email" type="email" maxlength="120" autocomplete="email" placeholder="tu@correo.com"></div>
+                  <div class="form-field"><label for="delivery-method">Entrega preferida</label><select id="delivery-method"><option value="Recogida a convenir">Recogida a convenir</option><option value="Consultar envío">Consultar envío</option></select><small>Gastos de envío no incluidos; coste, zona y plazo pendientes de confirmar.</small></div>
+                  <div class="form-field"><label for="design-text">Texto para imprimir (opcional)</label><input id="design-text" type="text" maxlength="120" placeholder="Escribe aquí tu texto"></div>
+                  <div class="form-field"><label for="design-file">Archivo de diseño (opcional)</label><input id="design-file" type="file" accept="image/*,.svg,.pdf"><small>El archivo no se sube aquí: adjúntalo manualmente en WhatsApp.</small></div>
+                  <div class="form-field form-field-wide"><label for="order-notes">Observaciones (opcional)</label><textarea id="order-notes" maxlength="400" rows="3" placeholder="Fecha deseada, detalles de entrega u otra indicación"></textarea></div>
+                </div>
+              </div>
+              <label class="order-consent"><input id="whatsapp-consent" type="checkbox"><span>Entiendo que mi nombre, datos opcionales y selección se incluirán en el borrador de WhatsApp. El sitio no guarda estos datos ni sube el archivo; el mensaje solo se envía cuando pulse Enviar en WhatsApp.</span></label>
               <a class="button button-whatsapp is-disabled" id="whatsapp-order" href="#" target="_blank" rel="noopener noreferrer" aria-disabled="true"><span id="order-button-label">Solicitar camiseta por WhatsApp</span><span aria-hidden="true">↗</span></a>
-              <p class="order-status" id="order-status" role="status" aria-live="polite">Marca la casilla para continuar.</p>
-              <p class="order-footnote" id="order-footnote">La página no guarda la solicitud ni sube archivos. Incluye tu nombre y adjunta el diseño en el chat. La disponibilidad y la recogida se confirman contigo; pago en efectivo al recoger.</p>
+              <p class="order-status" id="order-status" role="status" aria-live="polite">Escribe tu nombre y marca la casilla para continuar.</p>
+              <p class="order-footnote" id="order-footnote">Adjunta el diseño directamente en el chat. La disponibilidad y la recogida se confirman contigo; pago en efectivo al recoger.</p>
             </div>
           </aside>
         </div>
       </div>
     </section>
 
-    <section class="materials section wrap" id="materiales"><div class="materials-mark" aria-hidden="true">✳</div><div><p class="eyebrow"><span></span> UNA NOTA SOBRE SUBLIMACIÓN</p><h2>El tejido <em>sí importa.</em></h2></div><p class="materials-copy">La sublimación tradicional funciona mejor en prendas blancas o claras con alto contenido de poliéster. No imprime tinta blanca; la tela puede cambiar el resultado. La foto es ilustrativa y la compatibilidad se confirma antes de producir.</p></section>
-    <section class="pickup"><div class="wrap pickup-inner"><span aria-hidden="true">⌖</span><div><p class="eyebrow">RECOGIDA Y PAGO</p><h2>Se acuerdan al confirmar.</h2></div><p>El punto de recogida se acuerda por WhatsApp al confirmar disponibilidad. El pago se hace en efectivo al recoger; no hay pagos online.</p></div></section>
+    <section class="materials section wrap" id="materiales"><div class="materials-mark" aria-hidden="true">✳</div><div><p class="eyebrow"><span></span> UNA NOTA SOBRE SUBLIMACIÓN</p><h2>El tejido <em>sí importa.</em></h2></div><p class="materials-copy">La sublimación tradicional funciona mejor en prendas blancas o claras con alto contenido de poliéster. No imprime tinta blanca; la tela puede cambiar el resultado. La foto es ilustrativa y la compatibilidad de cada prenda y color se confirma antes de producir.</p></section>
+    <section class="pickup"><div class="wrap pickup-inner"><span aria-hidden="true">⌖</span><div><p class="eyebrow">ENTREGA Y PAGO</p><h2>A convenir contigo.</h2></div><p>Puedes solicitar recogida o consultar envío. Los gastos de envío no están incluidos; zona, coste, transportista y plazo se confirman por WhatsApp. No hay pagos online.</p></div></section>
   </main>
-  <footer class="site-footer"><div class="wrap footer-top"><a class="brand" href="#inicio"><span class="brand-mark">td<span>/</span></span><span class="brand-name">TU DISEÑO,<br>TU PRENDA</span></a><p>Un poco de color.<br>Una idea muy tuya.</p><a href="https://wa.me/34614683073" target="_blank" rel="noopener noreferrer">WhatsApp y contacto: +34 614 683 073</a><a href="#inicio">Volver arriba ↑</a></div><div class="wrap footer-bottom"><span>Solicitudes de camisetas por WhatsApp</span><span>Pago en efectivo al recoger <b>✳</b></span></div></footer>
+  <footer class="site-footer"><div class="wrap footer-top"><a class="brand" href="#inicio"><span class="brand-mark">td<span>/</span></span><span class="brand-name">TU DISEÑO,<br>TU PRENDA</span></a><p>Un poco de color.<br>Una idea muy tuya.</p><a href="https://wa.me/34614683073" target="_blank" rel="noopener noreferrer">WhatsApp y contacto: +34 614 683 073</a><a href="#inicio">Volver arriba ↑</a></div><div class="wrap footer-bottom"><span>Solicitudes de prendas por WhatsApp</span><span>Pago en efectivo al recoger <b>✳</b></span></div></footer>
 </body>
 </html>
+
 
 
 

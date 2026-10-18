@@ -37,8 +37,10 @@ const quantity = document.getElementById('preview-quantity');
 const designs = document.getElementById('small-designs');
 const designSize = document.getElementById('design-size');
 const garmentSize = document.getElementById('garment-size');
+const extraSizeRoot = document.getElementById('extra-size-rows');
 const stage = document.getElementById('garment-stage');
 const garmentPhoto = document.getElementById('garment-photo');
+const designPreviewText = document.querySelector('.design-preview-text');
 let kind = 'camiseta';
 let color = '#ffffff';
 
@@ -48,8 +50,44 @@ function bounded(input, min, max) {
   return Number(input.value);
 }
 
+function collectSizeQuantities() {
+  const quantities = new Map();
+  const firstQty = bounded(quantity, 1, 99);
+  quantities.set(garmentSize.value, firstQty);
+  extraSizeRoot.querySelectorAll('.extra-size-row').forEach(row => {
+    const size = row.querySelector('select').value;
+    const qtyInput = row.querySelector('input');
+    const qty = bounded(qtyInput, 0, 99);
+    if (qty > 0) quantities.set(size, (quantities.get(size) || 0) + qty);
+  });
+  return sizeCatalog[kind].sizes
+    .filter(size => quantities.has(size))
+    .map(size => [size, quantities.get(size)]);
+}
+
+function addExtraSizeRow() {
+  const row = document.createElement('div');
+  row.className = 'extra-size-row';
+  const select = document.createElement('select');
+  select.setAttribute('aria-label', 'Otra talla solicitada');
+  sizeCatalog[kind].sizes.forEach(size => {
+    const option = document.createElement('option'); option.value = size; option.textContent = size;
+    select.append(option);
+  });
+  const input = document.createElement('input');
+  input.type = 'number'; input.min = '1'; input.max = '99'; input.value = '1'; input.inputMode = 'numeric';
+  input.setAttribute('aria-label', 'Cantidad de esta otra talla');
+  const remove = document.createElement('button');
+  remove.type = 'button'; remove.textContent = '×'; remove.setAttribute('aria-label', 'Quitar esta talla');
+  select.addEventListener('change', update); input.addEventListener('input', update);
+  remove.addEventListener('click', () => { row.remove(); update(); });
+  row.append(select, input, remove); extraSizeRoot.append(row);
+  input.focus();
+}
+
 function renderSizeGuide() {
   const catalog = sizeCatalog[kind];
+  extraSizeRoot.replaceChildren();
   garmentSize.replaceChildren(...catalog.sizes.map(value => {
     const option = document.createElement('option');
     option.value = value; option.textContent = value;
@@ -94,15 +132,18 @@ function renderSwatches() {
   const selected = options.find(([, hex]) => hex === color)?.[0];
   const countLabel = options.length === 1 ? 'color anunciado' : 'colores anunciados';
   document.getElementById('color-helper').textContent = selected
-    ? `Seleccionado: ${selected}. ${options.length} ${countLabel}; muestras digitales aproximadas y existencias por confirmar.`
+    ? `Seleccionado: ${selected}. ${options.length} ${countLabel}; carta y existencias por confirmar. La compatibilidad del tono con sublimación se confirma antes de producir.`
     : 'El proveedor consultado no confirma una carta de colores para esta prenda.';
 }
 
 function update() {
-  const qty = bounded(quantity, 1, 99), count = bounded(designs, 1, 10);
+  const count = bounded(designs, 1, 10);
+  const sizeRows = collectSizeQuantities();
+  const qty = sizeRows.reduce((sum, [, countForSize]) => sum + countForSize, 0);
   const selectedColor = (colorCatalog[kind] || []).find(([, hex]) => hex === color);
   document.getElementById('garment-label').textContent = kindNames[kind];
-  document.getElementById('garment-size-label').textContent = `TALLA ${garmentSize.value || 'POR CONFIRMAR'}`;
+  designPreviewText.textContent = designText.value.trim().slice(0, 18) || 'TU DISEÑO';
+  document.getElementById('garment-size-label').textContent = sizeRows.length > 1 ? 'TALLAS VARIAS' : `TALLA ${sizeRows[0]?.[0] || 'POR CONFIRMAR'}`;
   document.getElementById('color-label').textContent = (selectedColor?.[0] || 'COLOR POR CONFIRMAR').toLocaleUpperCase('es');
   garmentPhoto.setAttribute('aria-label', `Previsualización ilustrativa de ${kindNames[kind].toLowerCase()} en ${selectedColor?.[0] || 'color por confirmar'}`);
   stage.style.setProperty('--garment-sheet', 'url("garment-preview-framed.png")');
@@ -115,7 +156,7 @@ function update() {
   document.getElementById('price-value').textContent = priced ? `${(qty * (7 + Math.max(0, count - 1))).toFixed(2).replace('.', ',')} €` : 'Por definir';
   document.getElementById('price-note').hidden = !priced;
   document.getElementById('no-price-note').hidden = priced;
-  updateOrderLink({ qty, count, selectedColor, priced });
+  updateOrderLink({ qty, count, selectedColor, priced, sizeRows });
 }
 
 const orderConsent = document.getElementById('whatsapp-consent');
@@ -125,39 +166,70 @@ const orderTitle = document.getElementById('order-title');
 const orderIntro = document.getElementById('order-intro');
 const orderFootnote = document.getElementById('order-footnote');
 const orderButtonLabel = document.getElementById('order-button-label');
+const orderReference = `TD-${new Date().toISOString().slice(0, 10).replaceAll('-', '')}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+const customerName = document.getElementById('customer-name');
+const customerPhone = document.getElementById('customer-phone');
+const customerEmail = document.getElementById('customer-email');
+const deliveryMethod = document.getElementById('delivery-method');
+const designText = document.getElementById('design-text');
+const designFile = document.getElementById('design-file');
+const orderNotes = document.getElementById('order-notes');
 
-function updateOrderLink({ qty, count, selectedColor, priced }) {
+function updateOrderLink({ qty, count, selectedColor, priced, sizeRows }) {
   const isShirt = kind === 'camiseta';
   const isSmallPrint = designSize.value === 'small';
   const total = qty * (7 + Math.max(0, count - 1));
-  const reference = `TD-${new Date().toISOString().slice(0, 10).replaceAll('-', '')}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
   const title = isShirt && isSmallPrint ? 'Pide tu camiseta' : 'Solicita tu presupuesto';
   orderTitle.textContent = title;
   orderButtonLabel.textContent = isShirt && isSmallPrint ? 'Solicitar camiseta por WhatsApp' : 'Pedir presupuesto por WhatsApp';
   orderIntro.textContent = isShirt && isSmallPrint
     ? `La camiseta cuesta 7 € con un diseño pequeño incluido; cada diseño pequeño adicional suma 1 € por prenda. Total estimado: ${total.toFixed(2).replace('.', ',')} €.`
     : 'El precio de esta combinación está pendiente de configurar; solicita presupuesto y confirma disponibilidad antes de producir.';
-  orderFootnote.textContent = 'La página no guarda la solicitud ni sube archivos. Incluye tu nombre y adjunta el diseño en el chat. La disponibilidad y la recogida se confirman contigo; pago en efectivo al recoger.';
+  orderFootnote.textContent = deliveryMethod.value === 'Consultar envío'
+    ? 'El sitio no guarda la solicitud ni sube archivos. Coste, zona, transportista y plazo de envío se confirman por WhatsApp; no hay pagos online.'
+    : 'El sitio no guarda la solicitud ni sube archivos. Adjunta el diseño en el chat. La disponibilidad y la recogida se confirman contigo; pago en efectivo al recoger.';
+  const sizeSummary = sizeRows.map(([size, sizeQty]) => `${size} × ${sizeQty}`).join(', ');
+  const name = customerName.value.trim();
+  const emailValid = !customerEmail.value.trim() || customerEmail.checkValidity();
+  const fileName = designFile.files?.[0]?.name || '';
   const lines = [
     `Hola, quiero solicitar ${isShirt && isSmallPrint ? 'un pedido de camiseta' : 'presupuesto de personalización'}.`,
-    `Referencia: ${reference}`,
-    `Prenda: ${kindNames[kind]}; color: ${selectedColor?.[0] || 'por confirmar'}; talla: ${garmentSize.value}; cantidad: ${qty}.`,
+    `Referencia de consulta: ${orderReference}`,
+    `Responsable: ${name || 'por indicar'}.`,
+    customerPhone.value.trim() ? `Teléfono adicional: ${customerPhone.value.trim()}.` : '',
+    customerEmail.value.trim() ? `Correo: ${customerEmail.value.trim()}.` : '',
+    `Prenda: ${kindNames[kind]}; color: ${selectedColor?.[0] || 'por confirmar'}; tallas y cantidades: ${sizeSummary}.`,
     `Diseño: ${isSmallPrint ? `${count} pequeño${count === 1 ? '' : 's'}` : '1 grande'}.`,
+    `Zona preferida: ${document.getElementById('print-location').value}.`,
+    designText.value.trim() ? `Texto para imprimir: ${designText.value.trim()}.` : '',
+    fileName ? `Archivo seleccionado para adjuntar manualmente en WhatsApp: ${fileName}.` : '',
+    `Entrega solicitada: ${deliveryMethod.value}.`,
+    orderNotes.value.trim() ? `Observaciones: ${orderNotes.value.trim()}.` : '',
     priced ? `Total estimado: ${total.toFixed(2).replace('.', ',')} €.` : 'Precio: pendiente de presupuesto.',
-    'Adjuntaré el diseño en este chat. Confirma disponibilidad y punto de recogida, por favor. Entiendo que pagaré en efectivo al recoger.'
-  ];
+    deliveryMethod.value === 'Consultar envío'
+      ? 'Confirma disponibilidad, coste y plazo del envío antes de producir. Entiendo que no hay pago online.'
+      : 'Confirma disponibilidad y punto de recogida, por favor. Entiendo que pagaré en efectivo al recoger.'
+  ].filter(Boolean);
   orderLink.href = `https://wa.me/34614683073?text=${encodeURIComponent(lines.join('\n'))}`;
-  const enabled = orderConsent.checked;
+  const enabled = orderConsent.checked && name.length > 0 && emailValid;
   orderLink.classList.toggle('is-disabled', !enabled);
   orderLink.setAttribute('aria-disabled', String(!enabled));
-  orderStatus.textContent = enabled
-    ? 'Listo: se abrirá WhatsApp con el borrador; pulsa Enviar allí para remitirlo.'
-    : 'Marca la casilla para continuar.';
+  orderStatus.textContent = !name
+    ? 'Escribe el nombre de la persona responsable.'
+    : !emailValid
+      ? 'Revisa el formato del correo electrónico.'
+      : !orderConsent.checked
+        ? 'Marca la casilla para continuar.'
+        : 'Listo: se abrirá WhatsApp con el borrador; pulsa Enviar allí para remitirlo.';
 }
 
-orderConsent.addEventListener('change', () => update());
+orderConsent.addEventListener('change', update);
+document.querySelectorAll('#customer-name,#customer-phone,#customer-email,#design-text,#order-notes').forEach(input => input.addEventListener('input', update));
+document.getElementById('design-file').addEventListener('change', update);
+document.querySelectorAll('#delivery-method,#print-location').forEach(input => input.addEventListener('change', update));
+document.getElementById('add-size-row').addEventListener('click', addExtraSizeRow);
 orderLink.addEventListener('click', event => {
-  if (!orderConsent.checked) event.preventDefault();
+  if (!orderConsent.checked || !customerName.value.trim() || !customerEmail.checkValidity()) event.preventDefault();
 });
 
 kindButtons.forEach(button => button.addEventListener('click', () => {
@@ -170,3 +242,4 @@ document.querySelectorAll('[data-qty]').forEach(button => button.addEventListene
 document.querySelectorAll('[data-design]').forEach(button => button.addEventListener('click', () => { designs.value = String(Number(designs.value) + (button.dataset.design === 'plus' ? 1 : -1)); update(); }));
 quantity.addEventListener('input', update); designs.addEventListener('input', update); designSize.addEventListener('change', update); garmentSize.addEventListener('change', update);
 renderSwatches(); renderSizeGuide(); update();
+

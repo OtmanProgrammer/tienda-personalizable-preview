@@ -92,8 +92,10 @@ h2 { font:600 clamp(32px,4vw,45px)/1.12 var(--serif); letter-spacing:-.02em; mar
 .preview-top i { display:inline-block; width:6px; height:6px; background:#95a486; border-radius:50%; margin-right:5px; }
 .garment-stage { position:relative; display:grid; place-items:center; flex:1; min-height:235px; margin:17px 0 15px; background:#f7f6f1; border-radius:5px; overflow:hidden; }
 .shirt-print { position:absolute; z-index:2; left:50%; top:43%; width:52px; height:52px; display:grid; place-content:center; text-align:center; background:#ed8055; color:#fff; font:700 11px/1.08 var(--sans); letter-spacing:.08em; transform:translate(-50%,-50%) rotate(-6deg); box-shadow:0 4px 10px #0002; }
-.shirt-print span { font-size:16px; color:#f8d45d; }
+.shirt-print .design-preview-text { display:block; max-width:100%; overflow-wrap:anywhere; font:700 11px/1.08 var(--sans); letter-spacing:.08em; text-transform:uppercase; }
+.shirt-print .design-preview-star { display:block; font-size:16px; color:#f8d45d; }
 .garment-stage.large .shirt-print { width:83px; height:83px; left:50%; top:43%; font-size:14px; }
+.garment-stage.large .shirt-print .design-preview-text { font-size:14px; }
 .stage-caption { position:absolute; z-index:3; left:15px; right:15px; bottom:12px; display:flex; justify-content:space-between; color:#898c82; font-size:8px; letter-spacing:.11em; text-shadow:0 1px 3px rgba(247,245,239,.9); }
 .price-panel { display:flex; align-items:end; justify-content:space-between; border-top:1px solid #eeede8; padding-top:14px; }
 .price-label { display:block; color:#7d8077; font-size:10px; }
@@ -227,5 +229,24 @@ h2 { font:600 clamp(32px,4vw,45px)/1.12 var(--serif); letter-spacing:-.02em; mar
 .order-status{min-height:14px;margin:8px 0;color:#626c5f;font-size:9px;line-height:1.4}
 .order-footnote{margin:0;color:#777d72;font-size:9px}
 @media(max-width:520px){.garment-stage{min-height:265px}.garment-photo{width:min(76%,220px)}.order-box{padding:14px}.stage-caption{font-size:7px}}
+
+.extra-size-rows{display:grid;gap:8px;margin-top:10px}
+.extra-size-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(100px,.75fr) auto;gap:8px;align-items:center;padding:9px;background:#f7f8f4;border:1px solid #e7e9df;border-radius:5px}
+.extra-size-row select,.extra-size-row input{width:100%;height:36px;border:1px solid var(--line);border-radius:4px;background:#fff;padding:0 9px;color:#484b44;font-size:11px}
+.extra-size-row button{width:32px;height:32px;border:1px solid #e2e0d8;border-radius:4px;background:#fff;color:#687060;cursor:pointer}
+.add-size-row{margin-top:9px;padding:8px 11px;border:1px solid #dfe3d9;border-radius:4px;background:#fff;color:#4c6345;font-size:10px;font-weight:700;cursor:pointer}
+.add-size-row:hover{background:#f3f5f0}
+.order-details{margin:15px 0}
+.order-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-field{min-width:0}
+.form-field label{display:block;margin-bottom:5px;color:#565d52;font-size:9px;font-weight:700;letter-spacing:.03em;text-transform:none}
+.form-field input,.form-field select,.form-field textarea{width:100%;min-height:38px;padding:9px 10px;border:1px solid #dfe2d9;border-radius:4px;background:#fff;color:#30362e;font:11px/1.45 var(--sans)}
+.form-field input[type=file]{padding:7px;font-size:9px}
+.form-field textarea{min-height:70px;resize:vertical}
+.form-field small{display:block;margin-top:4px;color:#858a80;font-size:8px;line-height:1.4}
+.form-field-wide{grid-column:1/-1}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus,.extra-size-row :focus-visible{outline:2px solid #7c8d70;outline-offset:1px;border-color:#7c8d70}
+@media(max-width:520px){.order-fields{grid-template-columns:1fr}.form-field-wide{grid-column:auto}.extra-size-row{grid-template-columns:minmax(0,1fr) 94px auto;gap:6px}}
+
 
 

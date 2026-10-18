@@ -1,11 +1,10 @@
-const kindNames={camiseta:'CAMISETA',polo:'POLO',sudadera:'SUDADERA'};
+const kindNames={camiseta:'CAMISETA',polo:'POLO',camisa:'CAMISA',sudadera:'SUDADERA'};
 const swatchNames={'#f4f0e7':'BLANCO NATURAL','#a6ae98':'VERDE SALVIA','#efd151':'AMARILLO VIVO'};
 const kindButtons=[...document.querySelectorAll('[data-kind]')];
 const quantity=document.getElementById('preview-quantity');
 const designs=document.getElementById('small-designs');
 const size=document.getElementById('design-size');
 const stage=document.getElementById('garment-stage');
-const garment=document.getElementById('garment-shape');
 let kind='camiseta';
 let color='#f4f0e7';
 function bounded(input,min,max){const n=Number.parseInt(input.value,10);input.value=String(Number.isFinite(n)?Math.min(max,Math.max(min,n)):min);return Number(input.value)}
@@ -13,8 +12,8 @@ function update(){
   const qty=bounded(quantity,1,99), count=bounded(designs,1,10);
   document.getElementById('garment-label').textContent=kindNames[kind];
   document.getElementById('color-label').textContent=swatchNames[color];
-  garment.style.setProperty('--garment-color',color);
-  stage.classList.remove('kind-camiseta','kind-polo','kind-sudadera');
+  stage.style.setProperty('--garment-color',color);
+  stage.classList.remove('kind-camiseta','kind-polo','kind-camisa','kind-sudadera');
   stage.classList.add(`kind-${kind}`);
   stage.classList.toggle('large',size.value==='large');
   document.getElementById('price-unit').textContent=`${qty} ${qty===1?'prenda':'prendas'}`;

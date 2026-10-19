@@ -177,6 +177,17 @@ const orderConsent = document.getElementById('email-consent');
 const orderForm = document.getElementById('order-form');
 const orderButton = document.getElementById('email-order');
 const orderMessage = document.getElementById('order-message');
+const orderEmailFields = {
+  reference: document.getElementById('order-reference'),
+  garment: document.getElementById('order-garment'),
+  color: document.getElementById('order-color'),
+  sizes: document.getElementById('order-sizes'),
+  quantity: document.getElementById('order-quantity'),
+  design: document.getElementById('order-design'),
+  location: document.getElementById('order-location'),
+  fileName: document.getElementById('order-file-name'),
+  total: document.getElementById('order-total')
+};
 const orderStatus = document.getElementById('order-status');
 const orderTitle = document.getElementById('order-title');
 const orderIntro = document.getElementById('order-intro');
@@ -208,6 +219,17 @@ function updateOrderForm({ qty, count, selectedColor, priced, sizeRows }) {
   const name = customerName.value.trim();
   const emailValid = !customerEmail.value.trim() || customerEmail.checkValidity();
   const fileName = designFile.files?.[0]?.name || '';
+  const designSummary = isSmallPrint ? `${count} diseño(s) pequeño(s)` : '1 diseño grande';
+  const totalSummary = priced ? `${total.toFixed(2).replace('.', ',')} €` : 'Pendiente de presupuesto';
+  orderEmailFields.reference.value = orderReference || 'Se asignará al enviar';
+  orderEmailFields.garment.value = kindNames[kind];
+  orderEmailFields.color.value = selectedColor?.[0] || 'Por confirmar';
+  orderEmailFields.sizes.value = sizeSummary || 'Por confirmar';
+  orderEmailFields.quantity.value = String(qty);
+  orderEmailFields.design.value = designSummary;
+  orderEmailFields.location.value = document.getElementById('print-location').value;
+  orderEmailFields.fileName.value = fileName || 'No se adjuntó archivo';
+  orderEmailFields.total.value = totalSummary;
   const lines = [
     `Hola, quiero solicitar ${isShirt && isSmallPrint ? 'un pedido de camiseta' : 'presupuesto de personalización'}.`,
     `Referencia de consulta: ${orderReference}`,
@@ -215,13 +237,13 @@ function updateOrderForm({ qty, count, selectedColor, priced, sizeRows }) {
     customerPhone.value.trim() ? `Teléfono adicional: ${customerPhone.value.trim()}.` : '',
     customerEmail.value.trim() ? `Correo: ${customerEmail.value.trim()}.` : '',
     `Prenda: ${kindNames[kind]}; color: ${selectedColor?.[0] || 'por confirmar'}; tallas y cantidades: ${sizeSummary}.`,
-    `Diseño: ${isSmallPrint ? `${count} pequeño${count === 1 ? '' : 's'}` : '1 grande'}.`,
+    `Diseño: ${designSummary}.`,
     `Zona preferida: ${document.getElementById('print-location').value}.`,
     designText.value.trim() ? `Texto para imprimir: ${designText.value.trim()}.` : '',
     fileName ? `Archivo adjunto: ${fileName}.` : 'No se adjuntó archivo de diseño.',
     `Entrega solicitada: ${deliveryMethod.value}.`,
     orderNotes.value.trim() ? `Observaciones: ${orderNotes.value.trim()}.` : '',
-    priced ? `Total estimado: ${total.toFixed(2).replace('.', ',')} €.` : 'Precio: pendiente de presupuesto.',
+    `Total estimado: ${totalSummary}.`,
     deliveryMethod.value === 'Consultar envío'
       ? 'Confirma disponibilidad, coste y plazo del envío antes de producir. Entiendo que no hay pago online.'
       : 'Confirma disponibilidad y punto de recogida, por favor. Entiendo que pagaré en efectivo al recoger.'
@@ -275,3 +297,4 @@ renderSwatches(); renderSizeGuide(); update();
 if (new URLSearchParams(window.location.search).get('pedido') === 'recibido') {
   orderStatus.textContent = 'Solicitud enviada. Te responderemos por correo para confirmar precio, disponibilidad y entrega.';
 }
+

@@ -7,7 +7,7 @@
   <meta name="description" content="Personaliza camisetas, polos y sudaderas. Envía tu solicitud o presupuesto por correo; efectivo al recoger.">
   <title>Tu diseño, tu prenda — Prendas personalizadas</title>
     <link rel="stylesheet" href="styles.css?v=14">
-    <script src="preview.js?v=15" defer></script>
+    <script src="preview.js?v=16" defer></script>
   <style>
     .garment-photo{position:absolute;z-index:1;left:50%;top:48%;width:min(76%,240px);aspect-ratio:1/1;transform:translate(-50%,-50%);background-image:var(--garment-sheet,url('garment-preview-framed.png'));background-size:var(--garment-sheet-size,200% 200%);background-position:var(--tile-x,50%) var(--tile-y,50%);background-repeat:no-repeat}
     .kind-camiseta .garment-photo,.kind-polo .garment-photo{background-position:var(--tile-x,50%) var(--tile-y,50%)}
@@ -86,16 +86,26 @@
               <input type="hidden" name="_next" value="https://otmanprogrammer.github.io/tienda-personalizable-preview/?pedido=recibido#configurador">
               <input type="hidden" name="_url" value="https://otmanprogrammer.github.io/tienda-personalizable-preview/">
               <input type="hidden" name="message" id="order-message" value="">
+              <input type="hidden" name="referencia" id="order-reference" value="">
+              <input type="hidden" name="prenda" id="order-garment" value="">
+              <input type="hidden" name="color" id="order-color" value="">
+              <input type="hidden" name="tallas_y_cantidades" id="order-sizes" value="">
+              <input type="hidden" name="unidades_totales" id="order-quantity" value="">
+              <input type="hidden" name="diseno_y_cantidad" id="order-design" value="">
+              <input type="hidden" name="zona_impresion" id="order-location" value="">
+              <input type="hidden" name="archivo_diseno" id="order-file-name" value="">
+              <input type="hidden" name="total_estimado" id="order-total" value="">
+              <input type="hidden" name="forma_de_pago" value="Efectivo al recoger; no hay pago online">
               <div><p class="eyebrow"><span></span> SOLICITUD POR CORREO</p><h3 id="order-title">Pide tu camiseta</h3><p class="order-intro" id="order-intro">La camiseta cuesta 7 € con un diseño pequeño incluido. Cada diseño pequeño adicional suma 1 € por prenda.</p></div>
               <div class="order-details">
                 <div class="order-fields">
                   <div class="form-field"><label for="customer-name">Responsable / nombre completo *</label><input id="customer-name" name="name" type="text" maxlength="80" autocomplete="name" placeholder="Tu nombre" required></div>
                   <div class="form-field"><label for="customer-phone">Teléfono adicional (opcional)</label><input id="customer-phone" name="telefono" type="tel" maxlength="25" autocomplete="tel" placeholder="Tu teléfono"></div>
                   <div class="form-field"><label for="customer-email">Correo para responderte (opcional)</label><input id="customer-email" name="email" type="email" maxlength="120" autocomplete="email" placeholder="tu@correo.com"></div>
-                  <div class="form-field"><label for="delivery-method">Entrega preferida</label><select id="delivery-method"><option value="Recogida a convenir">Recogida a convenir</option><option value="Consultar envío">Consultar envío</option></select><small>Gastos de envío no incluidos; coste, zona y plazo pendientes de confirmar.</small></div>
-                  <div class="form-field"><label for="design-text">Texto para imprimir (opcional)</label><input id="design-text" type="text" maxlength="120" placeholder="Escribe aquí tu texto"></div>
+                  <div class="form-field"><label for="delivery-method">Entrega preferida</label><select id="delivery-method" name="entrega_preferida"><option value="Recogida a convenir">Recogida a convenir</option><option value="Consultar envío">Consultar envío</option></select><small>Gastos de envío no incluidos; coste, zona y plazo pendientes de confirmar.</small></div>
+                  <div class="form-field"><label for="design-text">Texto para imprimir (opcional)</label><input id="design-text" name="texto_para_imprimir" type="text" maxlength="120" placeholder="Escribe aquí tu texto"></div>
                   <div class="form-field"><label for="design-file">Archivo de diseño (opcional)</label><input id="design-file" name="attachment" type="file" accept="image/*,.svg,.pdf"><small>Se adjuntará al correo. Tamaño máximo: 10 MB.</small></div>
-                  <div class="form-field form-field-wide"><label for="order-notes">Observaciones (opcional)</label><textarea id="order-notes" maxlength="400" rows="3" placeholder="Fecha deseada, detalles de entrega u otra indicación"></textarea></div>
+                  <div class="form-field form-field-wide"><label for="order-notes">Observaciones (opcional)</label><textarea id="order-notes" name="observaciones" maxlength="400" rows="3" placeholder="Fecha deseada, detalles de entrega u otra indicación"></textarea></div>
                 </div>
               </div>
               <label class="order-consent"><input id="email-consent" type="checkbox" required><span>Autorizo el envío de estos datos y del archivo a FormSubmit para que remita mi solicitud al correo del responsable. FormSubmit procesa los datos y conserva las solicitudes hasta 30 días; <a href="https://formsubmit.co/privacy" target="_blank" rel="noopener noreferrer">consulta su aviso de privacidad</a>. El sitio no guarda el pedido. No hay pago online.</span></label>
@@ -115,6 +125,7 @@
   <footer class="site-footer"><div class="wrap footer-top"><a class="brand" href="#inicio"><span class="brand-mark">td<span>/</span></span><span class="brand-name">TU DISEÑO,<br>TU PRENDA</span></a><p>Un poco de color.<br>Una idea muy tuya.</p><a href="#configurador">Solicitudes por correo</a><a href="#inicio">Volver arriba ↑</a></div><div class="wrap footer-bottom"><span>Solicitudes de prendas por correo</span><span>Pago en efectivo al recoger <b>✳</b></span></div></footer>
 </body>
 </html>
+
 
 
 
